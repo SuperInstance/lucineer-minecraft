@@ -1,0 +1,14 @@
+{
+  "name": "lucineer-mcp-server",
+  "version": "1.0.0",
+  "description": "Local MCP server for bot-script-agent coordination",
+  "type": "module",
+  "main": "index.ts",
+  "scripts": {
+    "dev": "bun --hot index.ts",
+    "start": "bun index.ts"
+  },
+  "dependencies": {
+    "z-ai-web-dev-sdk": "latest"
+  }
+}

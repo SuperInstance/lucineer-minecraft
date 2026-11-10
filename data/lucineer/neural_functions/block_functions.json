@@ -1,0 +1,210 @@
+{
+  "comment": "Neural Functions - AI block functions for Cell Builder",
+  "schema_version": "1.21.1",
+  
+  "categories": {
+    "basic_neural": {
+      "name": "Basic Neural Operations",
+      "tier_required": 1,
+      "functions": [
+        {
+          "name": "NEURON",
+          "syntax": "=NEURON(inputs, weights, bias)",
+          "description": "Computes a single neuron output: σ(Σ(wi*xi) + b)",
+          "example": "=NEURON(A1:A4, B1:B4, C1)",
+          "inputs": 3,
+          "output_type": "float",
+          "crafting": ["input_array", "weight_array", "bias_value"],
+          "block_color": "#22D3EE"
+        }
+      ]
+    },
+    "activation": {
+      "name": "Activation Functions",
+      "tier_required": 1,
+      "functions": [
+        {
+          "name": "RELU",
+          "syntax": "=RELU(value)",
+          "description": "Rectified Linear Unit: max(0, x)",
+          "example": "=RELU(A1)",
+          "inputs": 1,
+          "visual_effect": "green_glow_when_positive",
+          "block_color": "#4ADE80"
+        },
+        {
+          "name": "SIGMOID",
+          "syntax": "=SIGMOID(value)",
+          "description": "Sigmoid activation: 1 / (1 + e^(-x))",
+          "example": "=SIGMOID(A1)",
+          "inputs": 1,
+          "output_range": [0, 1],
+          "block_color": "#60A5FA"
+        },
+        {
+          "name": "TANH",
+          "syntax": "=TANH(value)",
+          "description": "Hyperbolic tangent activation",
+          "example": "=TANH(A1)",
+          "inputs": 1,
+          "output_range": [-1, 1],
+          "block_color": "#C084FC"
+        },
+        {
+          "name": "SOFTMAX",
+          "syntax": "=SOFTMAX(range)",
+          "description": "Softmax probability distribution",
+          "example": "=SOFTMAX(A1:A10)",
+          "inputs": "array",
+          "tier_required": 2,
+          "block_color": "#F472B6"
+        }
+      ]
+    },
+    "layers": {
+      "name": "Layer Operations",
+      "tier_required": 2,
+      "functions": [
+        {
+          "name": "DENSE",
+          "syntax": "=DENSE(inputs, weights_matrix, bias_vector)",
+          "description": "Dense (fully connected) layer computation",
+          "example": "=DENSE(A1:A10, B1:K10, L1:L10)",
+          "inputs": 3,
+          "complexity": "intermediate",
+          "block_color": "#A78BFA"
+        },
+        {
+          "name": "CONV2D",
+          "syntax": "=CONV2D(input_range, kernel_range, stride)",
+          "description": "2D convolution for image data",
+          "example": "=CONV2D(A1:E5, F1:H3, 1)",
+          "inputs": 3,
+          "tier_required": 3,
+          "complexity": "advanced",
+          "block_color": "#818CF8"
+        },
+        {
+          "name": "POOL",
+          "syntax": "=POOL(input_range, size, type)",
+          "description": "Pooling operation (max or average)",
+          "example": "=POOL(A1:E5, 2, 'max')",
+          "inputs": 3,
+          "tier_required": 2,
+          "block_color": "#38BDF8"
+        }
+      ]
+    },
+    "loss": {
+      "name": "Loss Functions",
+      "tier_required": 3,
+      "functions": [
+        {
+          "name": "MSE",
+          "syntax": "=MSE(predictions, targets)",
+          "description": "Mean Squared Error loss",
+          "example": "=MSE(A1:A10, B1:B10)",
+          "inputs": 2,
+          "block_color": "#FB7185"
+        },
+        {
+          "name": "CROSSENTROPY",
+          "syntax": "=CROSSENTROPY(predictions, targets)",
+          "description": "Cross-entropy loss for classification",
+          "example": "=CROSSENTROPY(A1:A10, B1:B10)",
+          "inputs": 2,
+          "complexity": "intermediate",
+          "block_color": "#F87171"
+        }
+      ]
+    },
+    "training": {
+      "name": "Training Operations",
+      "tier_required": 4,
+      "functions": [
+        {
+          "name": "GRADIENT",
+          "syntax": "=GRADIENT(loss_cell, weight_cell)",
+          "description": "Computes gradient of loss w.r.t. weight",
+          "example": "=GRADIENT(Z1, B5)",
+          "inputs": 2,
+          "complexity": "advanced",
+          "block_color": "#FB923C"
+        },
+        {
+          "name": "BACKPROP",
+          "syntax": "=BACKPROP(loss_cell, layer_range)",
+          "description": "Backpropagation through a layer",
+          "example": "=BACKPROP(Z1, A1:M10)",
+          "inputs": 2,
+          "complexity": "advanced",
+          "block_color": "#FBBF24"
+        },
+        {
+          "name": "SGD_STEP",
+          "syntax": "=SGD_STEP(weight, gradient, learning_rate)",
+          "description": "Stochastic Gradient Descent update step",
+          "example": "=SGD_STEP(B5, C5, 0.01)",
+          "inputs": 3,
+          "complexity": "intermediate",
+          "block_color": "#FACC15"
+        }
+      ]
+    },
+    "attention": {
+      "name": "Attention Mechanisms",
+      "tier_required": 5,
+      "functions": [
+        {
+          "name": "ATTENTION",
+          "syntax": "=ATTENTION(Q, K, V)",
+          "description": "Scaled dot-product attention",
+          "example": "=ATTENTION(A1:D4, E1:H4, I1:L4)",
+          "inputs": 3,
+          "complexity": "advanced",
+          "block_color": "#E879F9"
+        },
+        {
+          "name": "SELF_ATTENTION",
+          "syntax": "=SELF_ATTENTION(input_range, heads)",
+          "description": "Multi-head self-attention layer",
+          "example": "=SELF_ATTENTION(A1:D10, 4)",
+          "inputs": 2,
+          "complexity": "advanced",
+          "block_color": "#D946EF"
+        }
+      ]
+    },
+    "quantization": {
+      "name": "Quantization for Chips",
+      "tier_required": 5,
+      "functions": [
+        {
+          "name": "TERNARY",
+          "syntax": "=TERNARY(value)",
+          "description": "Convert to ternary {-1, 0, +1} (BitNet)",
+          "example": "=TERNARY(A1)",
+          "inputs": 1,
+          "visual_effect": "red_gray_green_coloring",
+          "block_color": "#34D399"
+        },
+        {
+          "name": "INT4",
+          "syntax": "=INT4(value)",
+          "description": "Quantize to 4-bit integer [-8, +7]",
+          "example": "=INT4(A1)",
+          "inputs": 1,
+          "block_color": "#10B981"
+        },
+        {
+          "name": "DEQUANTIZE",
+          "syntax": "=DEQUANTIZE(quantized, scale, zero_point)",
+          "description": "Dequantize back to floating point",
+          "example": "=DEQUANTIZE(A1, 0.1, 0)",
+          "inputs": 3,
+          "block_color": "#059669"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "comment": "Image Generation Request - Data Component for asset generation",
+  "schema_version": "1.21.1",
+  "loader": "neoforge:data_component_type",
+  
+  "name": "lucineer:image_request",
+  "persistent": true,
+  "network_synced": true,
+  
+  "schema": {
+    "type": "object",
+    "properties": {
+      "request_id": {
+        "type": "string",
+        "description": "Unique request identifier"
+      },
+      "prompt": {
+        "type": "string",
+        "maxLength": 500,
+        "description": "Image generation prompt"
+      },
+      "negative_prompt": {
+        "type": "string",
+        "maxLength": 200,
+        "default": "blurry, low quality, distorted"
+      },
+      "style": {
+        "type": "string",
+        "enum": ["pixel_art", "realistic", "cartoon", "anime", "fantasy", "sci_fi", "natural", "industrial"],
+        "default": "pixel_art",
+        "description": "Art style for generation"
+      },
+      "size": {
+        "type": "string",
+        "enum": ["16x16", "32x32", "64x64", "128x128", "256x256", "512x512"],
+        "default": "64x64",
+        "description": "Image dimensions"
+      },
+      "asset_type": {
+        "type": "string",
+        "enum": ["block_texture", "item_texture", "entity_skin", "ui_icon", "environment", "concept_art"],
+        "description": "Type of Minecraft asset"
+      },
+      "generation_params": {
+        "type": "object",
+        "properties": {
+          "steps": { "type": "integer", "minimum": 1, "maximum": 150, "default": 30 },
+          "guidance_scale": { "type": "number", "minimum": 1.0, "maximum": 20.0, "default": 7.5 },
+          "seed": { "type": "integer" },
+          "tileable": { "type": "boolean", "default": false },
+          "transparent_background": { "type": "boolean", "default": false }
+        }
+      },
+      "minecraft_optimization": {
+        "type": "object",
+        "properties": {
+          "enabled": { "type": "boolean", "default": true },
+          "palette_limit": { "type": "integer", "default": 256 },
+          "dithering": { "type": "boolean", "default": true },
+          "contrast_enhance": { "type": "boolean", "default": true }
+        }
+      },
+      "status": {
+        "type": "string",
+        "enum": ["pending", "generating", "completed", "failed"],
+        "default": "pending"
+      },
+      "result": {
+        "type": "object",
+        "properties": {
+          "image_base64": { "type": "string" },
+          "width": { "type": "integer" },
+          "height": { "type": "integer" },
+          "provider": { "type": "string" },
+          "model": { "type": "string" },
+          "seed_used": { "type": "integer" }
+        }
+      }
+    },
+    "required": ["request_id", "prompt"]
+  },
+  
+  "style_presets": {
+    "pixel_art": {
+      "prompt_suffix": "pixel art style, minecraft aesthetic, 16-bit, clean edges, limited color palette",
+      "default_size": "64x64",
+      "default_steps": 20
+    },
+    "realistic": {
+      "prompt_suffix": "highly detailed, realistic, 4k quality, professional rendering",
+      "default_size": "256x256",
+      "default_steps": 40
+    },
+    "cartoon": {
+      "prompt_suffix": "cartoon style, vibrant colors, clean lines, stylized",
+      "default_size": "128x128",
+      "default_steps": 30
+    }
+  },
+  
+  "server_config": {
+    "api_endpoint": "http://localhost:8080/generate-image",
+    "timeout_ms": 60000,
+    "fallback_providers": ["deepinfra", "local_sd"]
+  }
+}

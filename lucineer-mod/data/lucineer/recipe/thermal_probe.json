@@ -1,0 +1,38 @@
+{
+  "type": "neoforge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "lucineer:learning_tier",
+          "tier": 2
+        },
+        {
+          "type": "lucineer:skill_level",
+          "skill": "thermal_engineering",
+          "min_level": 15
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "pattern": [
+          " Q ",
+          "RTR",
+          " I "
+        ],
+        "key": {
+          "Q": { "item": "minecraft:quartz" },
+          "R": { "item": "minecraft:redstone" },
+          "T": { "item": "minecraft:target" },
+          "I": { "item": "minecraft:iron_ingot" }
+        },
+        "result": {
+          "id": "lucineer:thermal_probe",
+          "count": 1
+        },
+        "category": "lucineer:tools"
+      }
+    }
+  ],
+  "comment": "Tool for measuring temperature in thermal simulations"
+}

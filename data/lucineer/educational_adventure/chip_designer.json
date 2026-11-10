@@ -1,0 +1,86 @@
+{
+  "adventure_id": "chip_designer",
+  "title": "🔬 Chip Designer Lab",
+  "category": "CHIP_DESIGN",
+  "difficulty": 4,
+  "description": "Design your own silicon chips! Layout transistors and create working circuits!",
+  "objectives": [
+    {
+      "id": "design_inverter",
+      "description": "Design a basic CMOS inverter",
+      "target_value": 1,
+      "reward_xp": 100
+    },
+    {
+      "id": "design_nand",
+      "description": "Design a 2-input NAND gate",
+      "target_value": 1,
+      "reward_xp": 150
+    },
+    {
+      "id": "design_latch",
+      "description": "Design a SR latch (memory bit!)",
+      "target_value": 1,
+      "reward_xp": 200
+    },
+    {
+      "id": "design_alu_bit",
+      "description": "Design a 1-bit ALU slice",
+      "target_value": 1,
+      "reward_xp": 300
+    },
+    {
+      "id": "optimize_area",
+      "description": "Optimize a design to use 20% fewer transistors",
+      "target_value": 1,
+      "reward_xp": 150
+    }
+  ],
+  "game_mechanics": {
+    "interaction_type": "BLOCK_PLACEMENT",
+    "win_condition": "design_alu_bit",
+    "hints_enabled": true,
+    "grid_size": [16, 16],
+    "layers": ["metal1", "poly", "diffusion", "metal2"]
+  },
+  "visual_theme": {
+    "primary_color": "#06b6d4",
+    "secondary_color": "#8b5cf6",
+    "particle_effects": true,
+    "ambient_sounds": ["block.beacon.ambient", "block.end_portal.ambient"]
+  },
+  "npc_guide": {
+    "name": "Silicon Sam",
+    "skin": "lucineer:textures/entity/silicon_sam.png",
+    "dialogue_style": "technical_excited",
+    "personality": "Former Intel engineer, loves optimization and clean layouts"
+  },
+  "rewards": {
+    "xp_base": 30,
+    "items": [
+      {
+        "item": "lucineer:chip_foundry_key",
+        "condition": "design_latch"
+      },
+      {
+        "item": "lucineer:silicon_wafer",
+        "condition": "design_alu_bit"
+      }
+    ],
+    "unlock_next": ["cpu_architect", "memory_designer"]
+  },
+  "fun_facts": [
+    "Modern chips have 10+ layers of metal wiring!",
+    "A single CPU has over 10 billion transistors!",
+    "Chip features are measured in nanometers!",
+    "The first microprocessor had only 2,300 transistors!",
+    "Your phone's chip is more powerful than supercomputers from 1990!",
+    "Chip masks cost millions of dollars to design!"
+  ],
+  "in_game_integration": {
+    "block_type": "lucineer:chip_design_station",
+    "ui_scale": 1.5,
+    "redstone_output": false,
+    "special_dimension": "lucineer:silicon_foundry"
+  }
+}

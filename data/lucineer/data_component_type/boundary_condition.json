@@ -1,0 +1,109 @@
+{
+  "comment": "Boundary Condition Data Component - Thermal boundary definitions",
+  "schema_version": "1.21.1",
+  "loader": "neoforge:data_component_type",
+  
+  "name": "lucineer:boundary_condition",
+  "persistent": true,
+  "network_synced": true,
+  
+  "schema": {
+    "type": "object",
+    "properties": {
+      "boundary_id": {
+        "type": "string",
+        "description": "Unique boundary identifier"
+      },
+      "boundary_type": {
+        "type": "string",
+        "enum": ["dirichlet", "neumann", "convective", "periodic", "radiation"],
+        "description": "Type of thermal boundary condition"
+      },
+      "boundary_location": {
+        "type": "string",
+        "enum": ["left", "right", "top", "bottom", "front", "back", "custom"],
+        "description": "Location of the boundary in the simulation domain"
+      },
+      "value": {
+        "type": "number",
+        "description": "Temperature (K) for Dirichlet, Flux (W/m²) for Neumann, or h (W/m²K) for Convective"
+      },
+      "ambient_temperature_k": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 10000,
+        "description": "Ambient temperature for convective BC"
+      },
+      "emissivity": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1,
+        "description": "Surface emissivity for radiation BC"
+      },
+      "custom_region": {
+        "type": "object",
+        "properties": {
+          "x_min": { "type": "integer" },
+          "x_max": { "type": "integer" },
+          "y_min": { "type": "integer" },
+          "y_max": { "type": "integer" },
+          "z_min": { "type": "integer" },
+          "z_max": { "type": "integer" }
+        },
+        "description": "Custom region for non-standard boundaries"
+      }
+    },
+    "required": ["boundary_id", "boundary_type", "value"]
+  },
+  
+  "presets": {
+    "adiabatic": {
+      "boundary_id": "adiabatic",
+      "boundary_type": "neumann",
+      "value": 0.0,
+      "description": "Zero heat flux (insulated)"
+    },
+    "isothermal_300k": {
+      "boundary_id": "isothermal_300k",
+      "boundary_type": "dirichlet",
+      "value": 300.0,
+      "description": "Fixed temperature at 300K"
+    },
+    "isothermal_350k": {
+      "boundary_id": "isothermal_350k",
+      "boundary_type": "dirichlet",
+      "value": 350.0,
+      "description": "Fixed temperature at 350K"
+    },
+    "natural_convection": {
+      "boundary_id": "natural_convection",
+      "boundary_type": "convective",
+      "value": 25.0,
+      "ambient_temperature_k": 300.0,
+      "description": "Natural convection to air"
+    },
+    "forced_convection": {
+      "boundary_id": "forced_convection",
+      "boundary_type": "convective",
+      "value": 100000.0,
+      "ambient_temperature_k": 298.0,
+      "description": "Forced convection with liquid cooling"
+    },
+    "chip_package_bottom": {
+      "boundary_id": "chip_package_bottom",
+      "boundary_type": "convective",
+      "value": 50000.0,
+      "ambient_temperature_k": 320.0,
+      "boundary_location": "bottom",
+      "description": "Typical package thermal interface"
+    },
+    "chip_surface_top": {
+      "boundary_id": "chip_surface_top",
+      "boundary_type": "convective",
+      "value": 100000.0,
+      "ambient_temperature_k": 298.0,
+      "boundary_location": "top",
+      "description": "Heat sink interface"
+    }
+  }
+}

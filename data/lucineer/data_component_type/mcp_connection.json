@@ -1,0 +1,114 @@
+{
+  "__comment": "MCP Connection Data Component - Links Minecraft entities to the local MCP server",
+  "type": "minecraft:data_component_type",
+  "fields": {
+    "connection_id": {
+      "type": "string",
+      "description": "Unique connection identifier"
+    },
+    "server_address": {
+      "type": "string",
+      "default": "localhost:3031",
+      "description": "MCP server endpoint"
+    },
+    "protocol_version": {
+      "type": "string",
+      "default": "1.0.0"
+    },
+    "capabilities": {
+      "type": "compound",
+      "description": "What this connection supports",
+      "fields": {
+        "script_execution": "boolean",
+        "agent_escalation": "boolean",
+        "state_sync": "boolean",
+        "learning_feedback": "boolean"
+      }
+    },
+    "connection_state": {
+      "type": "string",
+      "enum": ["DISCONNECTED", "CONNECTING", "CONNECTED", "ERROR"],
+      "description": "Current connection status"
+    },
+    "last_sync": {
+      "type": "long",
+      "description": "Last sync timestamp (game ticks)"
+    },
+    "metrics": {
+      "type": "compound",
+      "description": "Performance metrics",
+      "fields": {
+        "scripts_executed": "int",
+        "agents_triggered": "int",
+        "api_calls_saved": "int",
+        "estimated_cost_saved": "float"
+      }
+    }
+  },
+  "example": {
+    "connection_id": "mcp_main_v1",
+    "server_address": "localhost:3031",
+    "protocol_version": "1.0.0",
+    "capabilities": {
+      "script_execution": true,
+      "agent_escalation": true,
+      "state_sync": true,
+      "learning_feedback": true
+    },
+    "connection_state": "CONNECTED",
+    "last_sync": 12000,
+    "metrics": {
+      "scripts_executed": 150,
+      "agents_triggered": 3,
+      "api_calls_saved": 147,
+      "estimated_cost_saved": 0.294
+    }
+  },
+  "api_endpoints": {
+    "process": {
+      "method": "POST",
+      "path": "/process",
+      "description": "Submit command for script/agent processing",
+      "request": {
+        "command": "string",
+        "context": "object"
+      },
+      "response": {
+        "type": "script_execution | agent_execution",
+        "script_id": "string?",
+        "request_id": "string?",
+        "educational_note": "string"
+      }
+    },
+    "metrics": {
+      "method": "GET",
+      "path": "/metrics",
+      "description": "Get performance metrics"
+    },
+    "scripts": {
+      "method": "GET", 
+      "path": "/scripts",
+      "description": "List available scripts"
+    },
+    "learn": {
+      "method": "GET",
+      "path": "/learn/bot-vs-agent",
+      "description": "Educational content about bots vs agents"
+    }
+  },
+  "minecraft_integration": {
+    "block_entity": "lucineer:mcp_connector",
+    "gui_screen": "lucineer:mcp_dashboard",
+    "commands": [
+      "/mcp status",
+      "/mcp scripts",
+      "/mcp metrics",
+      "/mcp connect <address>"
+    ],
+    "redstone_output": {
+      "connected": "signal 15",
+      "disconnected": "signal 0",
+      "error": "signal 7 (pulsing)"
+    }
+  }
+}

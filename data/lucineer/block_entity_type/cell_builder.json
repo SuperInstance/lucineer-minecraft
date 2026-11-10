@@ -1,0 +1,206 @@
+{
+  "comment": "Cell Builder Block Entity - Spreadsheet neural network interface",
+  "schema_version": "1.21.1",
+  "loader": "neoforge:block_entity_type",
+  
+  "name": "lucineer:cell_builder",
+  "block": "lucineer:cell_builder_block",
+  
+  "gui": {
+    "width": 400,
+    "height": 300,
+    "title": "Neural Network Cell Builder"
+  },
+  
+  "grid_config": {
+    "rows": 26,
+    "columns": 20,
+    "cell_size_px": 32
+  },
+  
+  "cell_types": {
+    "input": {
+      "color": "#3B82F6",
+      "icon": "database",
+      "description": "Input data cell"
+    },
+    "hidden": {
+      "color": "#8B5CF6",
+      "icon": "brain",
+      "description": "Hidden layer neuron"
+    },
+    "output": {
+      "color": "#10B981",
+      "icon": "target",
+      "description": "Output neuron"
+    },
+    "neuron": {
+      "color": "#06B6D4",
+      "icon": "neuron",
+      "description": "Neuron cell with activation"
+    },
+    "weight": {
+      "color": "#F59E0B",
+      "icon": "hash",
+      "description": "Weight parameter"
+    },
+    "bias": {
+      "color": "#F97316",
+      "icon": "plus",
+      "description": "Bias parameter"
+    },
+    "activation": {
+      "color": "#EC4899",
+      "icon": "zap",
+      "description": "Activation function"
+    },
+    "loss": {
+      "color": "#EF4444",
+      "icon": "x-circle",
+      "description": "Loss function"
+    },
+    "gradient": {
+      "color": "#F43F5E",
+      "icon": "trending-up",
+      "description": "Gradient visualization"
+    }
+  },
+  
+  "ai_functions": {
+    "NEURON": {
+      "syntax": "=NEURON(inputs, weights, bias)",
+      "description": "Compute single neuron: σ(Σ(wi*xi) + b)",
+      "inputs": 3,
+      "complexity": "basic",
+      "unlock_level": 1
+    },
+    "RELU": {
+      "syntax": "=RELU(value)",
+      "description": "Rectified Linear Unit: max(0, x)",
+      "inputs": 1,
+      "complexity": "basic",
+      "unlock_level": 1
+    },
+    "SIGMOID": {
+      "syntax": "=SIGMOID(value)",
+      "description": "Sigmoid: 1 / (1 + e^-x)",
+      "inputs": 1,
+      "complexity": "basic",
+      "unlock_level": 1
+    },
+    "TANH": {
+      "syntax": "=TANH(value)",
+      "description": "Hyperbolic tangent",
+      "inputs": 1,
+      "complexity": "basic",
+      "unlock_level": 2
+    },
+    "SOFTMAX": {
+      "syntax": "=SOFTMAX(range)",
+      "description": "Softmax probability distribution",
+      "inputs": 1,
+      "complexity": "intermediate",
+      "unlock_level": 3
+    },
+    "DENSE": {
+      "syntax": "=DENSE(inputs, weights, bias)",
+      "description": "Dense (fully connected) layer",
+      "inputs": 3,
+      "complexity": "intermediate",
+      "unlock_level": 4
+    },
+    "CONV2D": {
+      "syntax": "=CONV2D(input, kernel, stride)",
+      "description": "2D convolution operation",
+      "inputs": 3,
+      "complexity": "advanced",
+      "unlock_level": 5
+    },
+    "ATTENTION": {
+      "syntax": "=ATTENTION(Q, K, V)",
+      "description": "Scaled dot-product attention",
+      "inputs": 3,
+      "complexity": "advanced",
+      "unlock_level": 6
+    },
+    "TERNARY": {
+      "syntax": "=TERNARY(value)",
+      "description": "Convert to {-1, 0, +1} for BitNet",
+      "inputs": 1,
+      "complexity": "intermediate",
+      "unlock_level": 4
+    },
+    "GRADIENT": {
+      "syntax": "=GRADIENT(loss_cell, weight_cell)",
+      "description": "Compute gradient for backprop",
+      "inputs": 2,
+      "complexity": "advanced",
+      "unlock_level": 5
+    },
+    "BACKPROP": {
+      "syntax": "=BACKPROP(loss_cell, layer_range)",
+      "description": "Backpropagation through layer",
+      "inputs": 2,
+      "complexity": "advanced",
+      "unlock_level": 6
+    }
+  },
+  
+  "learning_modules": {
+    "intro-neurons": {
+      "title": "Introduction to Neurons",
+      "tier": 1,
+      "difficulty": "Beginner",
+      "lessons": 5,
+      "duration_minutes": 15,
+      "xp_reward": 100
+    },
+    "cell-formulas": {
+      "title": "AI Formulas in Cells",
+      "tier": 2,
+      "difficulty": "Beginner", 
+      "lessons": 8,
+      "duration_minutes": 25,
+      "xp_reward": 200
+    },
+    "build-network": {
+      "title": "Build a Neural Network",
+      "tier": 3,
+      "difficulty": "Intermediate",
+      "lessons": 12,
+      "duration_minutes": 45,
+      "xp_reward": 500
+    },
+    "train-model": {
+      "title": "Train Your Model",
+      "tier": 4,
+      "difficulty": "Advanced",
+      "lessons": 15,
+      "duration_minutes": 60,
+      "xp_reward": 1000
+    },
+    "quantization-chips": {
+      "title": "Quantization for Chips",
+      "tier": 5,
+      "difficulty": "Expert",
+      "lessons": 8,
+      "duration_minutes": 40,
+      "xp_reward": 2000
+    }
+  },
+  
+  "example_networks": {
+    "simple-perceptron": {
+      "name": "Simple Perceptron",
+      "description": "Single neuron with 2 inputs",
+      "cells": [
+        { "id": "A1", "type": "input", "value": 0.5 },
+        { "id": "A2", "type": "input", "value": 0.8 },
+        { "id": "B1", "type": "weight", "value": 0.7 },
+        { "id": "B2", "type": "weight", "value": -0.3 },
+        { "id": "C1", "type": "bias", "value": 0.1 },
+        { "id": "D1", "type": "neuron", "formula": "=NEURON(A1:A2,B1:B2,C1)" }
+      ]
+    }
+  }
+}

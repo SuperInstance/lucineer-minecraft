@@ -1,0 +1,99 @@
+{
+  "comment": "Manufacturing Process Step - Block with physics data",
+  "schema_version": "1.21.1",
+  "loader": "neoforge:data_component_type",
+  
+  "name": "lucineer:manufacturing_step",
+  "persistent": true,
+  "network_synced": true,
+  
+  "schema": {
+    "type": "object",
+    "properties": {
+      "step_id": {
+        "type": "string",
+        "enum": [
+          "silicon_extraction",
+          "czochralski_growth",
+          "wafer_slicing",
+          "photolithography",
+          "etching",
+          "ion_implantation",
+          "metallization",
+          "mask_locked_weights",
+          "packaging",
+          "testing_binning"
+        ]
+      },
+      "name": {"type": "string"},
+      "subtitle": {"type": "string"},
+      "description": {"type": "string"},
+      "physics": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {"type": "string"},
+            "value": {"type": "string"},
+            "meaning": {"type": "string"}
+          }
+        }
+      },
+      "voxel_concept": {"type": "string"},
+      "learning_outcomes": {
+        "type": "array",
+        "items": {"type": "string"}
+      },
+      "progress": {
+        "type": "object",
+        "properties": {
+          "completed": {"type": "boolean", "default": false},
+          "quality_score": {"type": "number", "minimum": 0, "maximum": 100},
+          "xp_earned": {"type": "integer"}
+        }
+      }
+    }
+  },
+  
+  "presets": {
+    "silicon_extraction": {
+      "step_id": "silicon_extraction",
+      "name": "Silicon Extraction",
+      "subtitle": "From Sand to Crystal",
+      "description": "Silicon is extracted from silica sand through carbothermic reduction at 1900°C",
+      "physics": [
+        {"name": "Reaction Temperature", "value": "T = 1900°C", "meaning": "Carbothermic reduction"},
+        {"name": "Chemical Equation", "value": "SiO₂ + 2C → Si + 2CO", "meaning": "Silicon dioxide to silicon"},
+        {"name": "Purity Target", "value": "99.9999999%", "meaning": "9N purity required"}
+      ],
+      "voxel_concept": "Watch sand grains transform into glowing crystals as heat rises",
+      "learning_outcomes": ["Phase transitions", "Chemical reduction", "Purity metrics"]
+    },
+    "photolithography": {
+      "step_id": "photolithography",
+      "name": "Photolithography",
+      "subtitle": "Pattern Transfer",
+      "description": "UV light projects a pattern through a mask onto photoresist-coated wafer",
+      "physics": [
+        {"name": "Resolution", "value": "R = k₁λ/NA", "meaning": "Rayleigh criterion"},
+        {"name": "Wavelength", "value": "λ = 193 nm (ArF)", "meaning": "Deep UV lithography"},
+        {"name": "Numerical Aperture", "value": "NA = 1.35", "meaning": "Immersion optics"}
+      ],
+      "voxel_concept": "Be the photon! Navigate through the mask to expose the pattern",
+      "learning_outcomes": ["Optical physics", "Resolution limits", "Exposure chemistry"]
+    },
+    "mask_locked_weights": {
+      "step_id": "mask_locked_weights",
+      "name": "Mask-Locked Weights",
+      "subtitle": "Neural Encoding",
+      "description": "Neural network weights are physically encoded as metal patterns - immutable forever",
+      "physics": [
+        {"name": "Ternary Encoding", "value": "w ∈ {-1, 0, +1}", "meaning": "BitNet weights"},
+        {"name": "Bit Density", "value": "ρ = 10¹² bits/cm²", "meaning": "Information density"},
+        {"name": "Zero Access Energy", "value": "E_access = 0", "meaning": "No memory fetch"}
+      ],
+      "voxel_concept": "Freeze the weights! See neural patterns become silicon reality",
+      "learning_outcomes": ["Weight encoding", "Ternary logic", "Hardware instantiation"]
+    }
+  }
+}

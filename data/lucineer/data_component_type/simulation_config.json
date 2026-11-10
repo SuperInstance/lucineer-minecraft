@@ -1,0 +1,109 @@
+{
+  "comment": "Simulation Config Data Component - Thermal simulation parameters",
+  "schema_version": "1.21.1",
+  "loader": "neoforge:data_component_type",
+  
+  "name": "lucineer:simulation_config",
+  "persistent": true,
+  "network_synced": true,
+  
+  "schema": {
+    "type": "object",
+    "properties": {
+      "config_id": {
+        "type": "string",
+        "description": "Configuration identifier"
+      },
+      "grid": {
+        "type": "object",
+        "properties": {
+          "nx": { "type": "integer", "minimum": 10, "maximum": 1000, "description": "X grid points" },
+          "ny": { "type": "integer", "minimum": 10, "maximum": 1000, "description": "Y grid points" },
+          "nz": { "type": "integer", "minimum": 1, "maximum": 1000, "default": 1, "description": "Z grid points (1 for 2D)" },
+          "dx_nm": { "type": "number", "minimum": 0.1, "description": "X grid spacing in nm" },
+          "dy_nm": { "type": "number", "minimum": 0.1, "description": "Y grid spacing in nm" },
+          "dz_nm": { "type": "number", "minimum": 0.1, "description": "Z grid spacing in nm" }
+        },
+        "required": ["nx", "ny", "dx_nm", "dy_nm"]
+      },
+      "physics": {
+        "type": "object",
+        "properties": {
+          "ambient_temperature_k": { "type": "number", "default": 300.0 },
+          "default_material": { "type": "string", "default": "silicon" },
+          "include_radiation": { "type": "boolean", "default": false },
+          "include_joule_heating": { "type": "boolean", "default": true }
+        }
+      },
+      "solver": {
+        "type": "object",
+        "properties": {
+          "type": { 
+            "type": "string", 
+            "enum": ["iterative_sor", "iterative_gauss_seidel", "matrix_direct", "matrix_cg", "matrix_gmres"],
+            "default": "iterative_sor"
+          },
+          "max_iterations": { "type": "integer", "minimum": 100, "maximum": 1000000, "default": 10000 },
+          "convergence_tolerance": { "type": "number", "minimum": 1e-12, "maximum": 1e-2, "default": 1e-6 },
+          "relaxation_factor": { "type": "number", "minimum": 0.1, "maximum": 2.0, "default": 1.0 }
+        }
+      },
+      "transient": {
+        "type": "object",
+        "properties": {
+          "enabled": { "type": "boolean", "default": false },
+          "time_step_ns": { "type": "number", "minimum": 1e-6 },
+          "total_time_us": { "type": "number", "minimum": 1e-6 },
+          "save_history": { "type": "boolean", "default": false },
+          "history_interval": { "type": "integer", "default": 10 }
+        }
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "verbose": { "type": "boolean", "default": true },
+          "export_format": { 
+            "type": "string", 
+            "enum": ["json", "csv", "vtk", "numpy"],
+            "default": "json"
+          },
+          "include_gradient": { "type": "boolean", "default": true },
+          "include_flux": { "type": "boolean", "default": true }
+        }
+      }
+    },
+    "required": ["config_id", "grid"]
+  },
+  
+  "presets": {
+    "quick_2d": {
+      "config_id": "quick_2d",
+      "grid": { "nx": 50, "ny": 50, "nz": 1, "dx_nm": 10, "dy_nm": 10, "dz_nm": 10 },
+      "physics": { "ambient_temperature_k": 300.0, "default_material": "silicon" },
+      "solver": { "type": "iterative_sor", "max_iterations": 5000, "convergence_tolerance": 1e-4 },
+      "output": { "verbose": true }
+    },
+    "detailed_2d": {
+      "config_id": "detailed_2d",
+      "grid": { "nx": 200, "ny": 200, "nz": 1, "dx_nm": 5, "dy_nm": 5, "dz_nm": 5 },
+      "physics": { "ambient_temperature_k": 300.0, "default_material": "silicon" },
+      "solver": { "type": "matrix_cg", "max_iterations": 50000, "convergence_tolerance": 1e-8 },
+      "output": { "verbose": true, "export_format": "numpy" }
+    },
+    "transient_test": {
+      "config_id": "transient_test",
+      "grid": { "nx": 100, "ny": 100, "nz": 1, "dx_nm": 10, "dy_nm": 10, "dz_nm": 10 },
+      "physics": { "ambient_temperature_k": 300.0 },
+      "solver": { "max_iterations": 10000, "convergence_tolerance": 1e-6 },
+      "transient": { "enabled": true, "time_step_ns": 1.0, "total_time_us": 1.0, "save_history": true },
+      "output": { "verbose": true }
+    },
+    "full_3d_chip": {
+      "config_id": "full_3d_chip",
+      "grid": { "nx": 100, "ny": 100, "nz": 50, "dx_nm": 10, "dy_nm": 10, "dz_nm": 10 },
+      "physics": { "ambient_temperature_k": 300.0, "include_radiation": true },
+      "solver": { "type": "matrix_gmres", "max_iterations": 100000, "convergence_tolerance": 1e-6 },
+      "output": { "verbose": true, "export_format": "vtk", "include_gradient": true, "include_flux": true }
+    }
+  }
+}

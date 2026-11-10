@@ -1,0 +1,87 @@
+{
+  "type": "lucineer:educational_adventure",
+  "description": "Interactive educational mini-games that teach computing concepts through gameplay",
+  "properties": {
+    "adventure_id": {
+      "type": "string",
+      "description": "Unique identifier for the adventure"
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title shown to player"
+    },
+    "category": {
+      "type": "string",
+      "enum": ["BINARY", "LOGIC_GATES", "CHIP_DESIGN", "NETWORKING", "MEMORY", "ALGORITHMS", "DATA_STRUCTURES"],
+      "description": "Educational category"
+    },
+    "difficulty": {
+      "type": "integer",
+      "min": 1,
+      "max": 5,
+      "description": "Difficulty level (1-5)"
+    },
+    "objectives": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": "string",
+          "description": "string",
+          "target_value": "integer",
+          "reward_xp": "integer"
+        }
+      },
+      "description": "Learning objectives with rewards"
+    },
+    "game_mechanics": {
+      "type": "object",
+      "properties": {
+        "interaction_type": {
+          "type": "string",
+          "enum": ["SWITCH_TOGGLES", "BLOCK_PLACEMENT", "ITEM_COMBINATION", "REDSTONE_CIRCUIT", "PATTERN_MATCHING"]
+        },
+        "win_condition": {
+          "type": "string",
+          "description": "Expression for winning the adventure"
+        },
+        "hints_enabled": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    },
+    "visual_theme": {
+      "type": "object",
+      "properties": {
+        "primary_color": "string",
+        "secondary_color": "string",
+        "particle_effects": "boolean",
+        "ambient_sounds": "array"
+      }
+    },
+    "npc_guide": {
+      "type": "object",
+      "properties": {
+        "name": "string",
+        "skin": "string",
+        "dialogue_style": "string",
+        "personality": "string"
+      },
+      "description": "In-game character that guides the player"
+    },
+    "rewards": {
+      "type": "object",
+      "properties": {
+        "xp_base": "integer",
+        "items": "array",
+        "unlock_next": "array"
+      }
+    },
+    "fun_facts": {
+      "type": "array",
+      "items": "string",
+      "description": "Educational facts shown during gameplay"
+    }
+  }
+}

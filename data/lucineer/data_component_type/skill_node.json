@@ -1,0 +1,135 @@
+{
+  "comment": "Skill Tree Node - Progressive learning progression",
+  "schema_version": "1.21.1",
+  "loader": "neoforge:data_component_type",
+  
+  "name": "lucineer:skill_node",
+  "persistent": true,
+  "network_synced": true,
+  
+  "schema": {
+    "type": "object",
+    "properties": {
+      "node_id": {"type": "string"},
+      "name": {"type": "string"},
+      "description": {"type": "string"},
+      "tier": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 10,
+        "description": "Learning tier (1=elementary, 10=master)"
+      },
+      "category": {
+        "type": "string",
+        "enum": ["electronics", "neural_networks", "thermal_design", "manufacturing", "programming", "physics", "mathematics"]
+      },
+      "xp_cost": {"type": "integer"},
+      "xp_reward": {"type": "integer"},
+      "prerequisites": {
+        "type": "array",
+        "items": {"type": "string"},
+        "description": "Node IDs that must be unlocked first"
+      },
+      "unlocks": {
+        "type": "array",
+        "items": {"type": "string"},
+        "description": "Node IDs this unlocks"
+      },
+      "state": {
+        "type": "string",
+        "enum": ["locked", "available", "in_progress", "completed", "mastered"]
+      },
+      "progress": {
+        "type": "object",
+        "properties": {
+          "current": {"type": "integer"},
+          "required": {"type": "integer"}
+        }
+      },
+      "content": {
+        "type": "object",
+        "properties": {
+          "lessons": {"type": "array", "items": {"type": "string"}},
+          "challenges": {"type": "array", "items": {"type": "string"}},
+          "projects": {"type": "array", "items": {"type": "string"}}
+        }
+      },
+      "rewards": {
+        "type": "object",
+        "properties": {
+          "items": {"type": "array"},
+          "abilities": {"type": "array"},
+          "titles": {"type": "array"}
+        }
+      }
+    }
+  },
+  
+  "tier_definitions": {
+    "1_elementary": {"age_range": "5-10", "description": "Fun introductions"},
+    "2_middle_basic": {"age_range": "11-14", "description": "Building foundations"},
+    "3_middle_intermediate": {"age_range": "11-14", "description": "Deeper concepts"},
+    "4_high_school": {"age_range": "15-18", "description": "Technical depth"},
+    "5_college": {"age_range": "18+", "description": "Professional basics"},
+    "6_advanced": {"age_range": "18+", "description": "Specialization"},
+    "7_expert": {"age_range": "Professional", "description": "Industry skills"},
+    "8_senior": {"age_range": "Professional", "description": "Advanced design"},
+    "9_master": {"age_range": "Expert", "description": "Innovation"},
+    "10_teacher": {"age_range": "Master", "description": "Teaching others"}
+  },
+  
+  "sample_nodes": [
+    {
+      "node_id": "intro_electrons",
+      "name": "Meet the Electrons",
+      "tier": 1,
+      "category": "electronics",
+      "xp_cost": 0,
+      "xp_reward": 100,
+      "prerequisites": [],
+      "content": {
+        "lessons": ["What are electrons?", "Flow of electricity"],
+        "challenges": ["Light a virtual LED"]
+      }
+    },
+    {
+      "node_id": "intro_neurons",
+      "name": "Introduction to Neurons",
+      "tier": 1,
+      "category": "neural_networks",
+      "xp_cost": 0,
+      "xp_reward": 100,
+      "prerequisites": [],
+      "content": {
+        "lessons": ["What is a neuron?", "Inputs and outputs"],
+        "challenges": ["Build a perceptron"]
+      }
+    },
+    {
+      "node_id": "thermal_basics",
+      "name": "Heat Flow Basics",
+      "tier": 3,
+      "category": "thermal_design",
+      "xp_cost": 500,
+      "xp_reward": 300,
+      "prerequisites": ["intro_electrons"],
+      "content": {
+        "lessons": ["Thermal conductivity", "Heat equation"],
+        "challenges": ["Design a heat sink"]
+      }
+    },
+    {
+      "node_id": "ternary_weights",
+      "name": "Ternary Weight Encoding",
+      "tier": 5,
+      "category": "neural_networks",
+      "xp_cost": 2000,
+      "xp_reward": 1000,
+      "prerequisites": ["intro_neurons", "quantization_basics"],
+      "content": {
+        "lessons": ["BitNet architecture", "Weight quantization"],
+        "challenges": ["Design a ternary MAC unit"]
+      }
+    }
+  ]
+}

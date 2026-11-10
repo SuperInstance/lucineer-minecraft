@@ -1,0 +1,31 @@
+{
+  "type": "neoforge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "lucineer:learning_tier",
+          "tier": 1
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "pattern": [
+          "  G",
+          " S ",
+          "S  "
+        ],
+        "key": {
+          "G": { "item": "minecraft:glass_pane" },
+          "S": { "item": "minecraft:stick" }
+        },
+        "result": {
+          "id": "lucineer:magnifying_glass",
+          "count": 1
+        },
+        "category": "lucineer:tools"
+      }
+    }
+  ],
+  "comment": "Starter tool for examining chip internals"
+}

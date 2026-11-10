@@ -1,0 +1,182 @@
+{
+  "comment": "Skill Tree - Progressive STEM Learning",
+  "schema_version": "1.21.1",
+  
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Elementary",
+      "age_range": "5-10",
+      "xp_required": 0,
+      "skills": [
+        {
+          "id": "mining_basics",
+          "name": "Mining Basics",
+          "description": "Learn to gather resources",
+          "lessons": ["find_stone", "craft_pickaxe", "find_iron"],
+          "xp_reward": 100
+        },
+        {
+          "id": "electronics_intro",
+          "name": "Electronics Introduction",
+          "description": "Learn about voltage, current, and circuits",
+          "lessons": ["what_is_voltage", "simple_circuit", "led_blink"],
+          "characters": ["volt", "bit", "switch"],
+          "xp_reward": 150
+        },
+        {
+          "id": "neurons_intro",
+          "name": "Meet the Neuron",
+          "description": "What is a neuron and how does it think?",
+          "lessons": ["neuron_parts", "inputs_outputs", "simple_calculation"],
+          "xp_reward": 200
+        }
+      ]
+    },
+    {
+      "tier": 2,
+      "name": "Middle School",
+      "age_range": "11-14",
+      "xp_required": 500,
+      "skills": [
+        {
+          "id": "transistor_logic",
+          "name": "Transistor Logic",
+          "description": "Build logic gates from transistors",
+          "lessons": ["nmos_pmos", "build_inverter", "logic_gates"],
+          "prerequisites": ["electronics_intro"],
+          "xp_reward": 300
+        },
+        {
+          "id": "cell_formulas",
+          "name": "AI Formulas in Cells",
+          "description": "Write your first AI formula",
+          "lessons": ["formula_syntax", "cell_references", "neuron_function"],
+          "prerequisites": ["neurons_intro"],
+          "xp_reward": 400
+        },
+        {
+          "id": "manufacturing_intro",
+          "name": "Chip Manufacturing",
+          "description": "How chips are made from sand",
+          "lessons": ["silicon_extraction", "crystal_growth", "photolithography"],
+          "xp_reward": 350
+        }
+      ]
+    },
+    {
+      "tier": 3,
+      "name": "High School",
+      "age_range": "15-18",
+      "xp_required": 2000,
+      "skills": [
+        {
+          "id": "network_building",
+          "name": "Build Neural Networks",
+          "description": "Connect neurons into networks",
+          "lessons": ["layer_design", "forward_pass", "activation_functions"],
+          "prerequisites": ["cell_formulas"],
+          "xp_reward": 800
+        },
+        {
+          "id": "thermal_basics",
+          "name": "Thermal Management",
+          "description": "Heat flow in chips",
+          "lessons": ["heat_equation", "material_properties", "cooling_designs"],
+          "prerequisites": ["manufacturing_intro"],
+          "xp_reward": 600
+        },
+        {
+          "id": "hdl_intro",
+          "name": "Hardware Description",
+          "description": "Verilog basics for chip design",
+          "lessons": ["verilog_syntax", "combinational_logic", "sequential_logic"],
+          "prerequisites": ["transistor_logic"],
+          "xp_reward": 700
+        }
+      ]
+    },
+    {
+      "tier": 4,
+      "name": "College",
+      "age_range": "18+",
+      "xp_required": 5000,
+      "skills": [
+        {
+          "id": "model_training",
+          "name": "Train AI Models",
+          "description": "Backpropagation and optimization",
+          "lessons": ["gradient_descent", "loss_functions", "weight_updates"],
+          "prerequisites": ["network_building"],
+          "xp_reward": 1500
+        },
+        {
+          "id": "fe_simulation",
+          "name": "Finite Element Analysis",
+          "description": "Numerical thermal simulation",
+          "lessons": ["grid_generation", "matrix_solver", "boundary_conditions"],
+          "prerequisites": ["thermal_basics"],
+          "xp_reward": 1200
+        },
+        {
+          "id": "rtl_design",
+          "name": "RTL Design Flow",
+          "description": "From Verilog to GDSII",
+          "lessons": ["synthesis", "place_route", "tapeout"],
+          "prerequisites": ["hdl_intro"],
+          "xp_reward": 2000
+        }
+      ]
+    },
+    {
+      "tier": 5,
+      "name": "Chip Designer",
+      "age_range": "Professional",
+      "xp_required": 15000,
+      "skills": [
+        {
+          "id": "ternary_quantization",
+          "name": "Ternary Weight Quantization",
+          "description": "BitNet {-1, 0, +1} for efficient inference",
+          "lessons": ["ternary_theory", "training_ternary", "hardware_mapping"],
+          "prerequisites": ["model_training"],
+          "xp_reward": 3000
+        },
+        {
+          "id": "mask_locked_design",
+          "name": "Mask-Locked Inference",
+          "description": "Embed weights in silicon",
+          "lessons": ["metal_layer_encoding", "security_analysis", "optimization"],
+          "prerequisites": ["ternary_quantization", "rtl_design"],
+          "xp_reward": 5000
+        }
+      ]
+    }
+  ],
+  
+  "xp_system": {
+    "lesson_complete": 100,
+    "challenge_complete": 250,
+    "perfect_score": 500,
+    "teach_other": 1000,
+    "create_design": 2000
+  },
+  
+  "prestige_bonuses": {
+    "prestige_1": {
+      "name": "Apprentice",
+      "requires_xp": 50000,
+      "bonuses": ["10% XP boost", "Unlock expert lessons", "Custom badge"]
+    },
+    "prestige_2": {
+      "name": "Journeyman",
+      "requires_xp": 200000,
+      "bonuses": ["25% XP boost", "Generate lessons", "Mentor others"]
+    },
+    "prestige_3": {
+      "name": "Master",
+      "requires_xp": 1000000,
+      "bonuses": ["50% XP boost", "Create curricula", "Certified teacher"]
+    }
+  }
+}

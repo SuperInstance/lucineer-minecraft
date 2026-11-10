@@ -1,0 +1,31 @@
+{
+  "type": "neoforge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "lucineer:learning_tier",
+          "tier": 1
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "pattern": [
+          " R ",
+          "RIR",
+          " R "
+        ],
+        "key": {
+          "R": { "item": "minecraft:redstone" },
+          "I": { "item": "minecraft:iron_ingot" }
+        },
+        "result": {
+          "id": "lucineer:transistor_item",
+          "count": 4
+        },
+        "category": "lucineer:electronics"
+      }
+    }
+  ],
+  "comment": "Unlock: Complete 'Electronics Basics' lesson"
+}

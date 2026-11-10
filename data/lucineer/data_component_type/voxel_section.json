@@ -1,0 +1,132 @@
+{
+  "comment": "Voxel Cross-Section - For exploring chip anatomy in 3D",
+  "schema_version": "1.21.1",
+  "loader": "neoforge:data_component_type",
+  
+  "name": "lucineer:voxel_section",
+  "persistent": true,
+  "network_synced": true,
+  
+  "schema": {
+    "type": "object",
+    "properties": {
+      "section_id": {
+        "type": "string",
+        "description": "Unique cross-section identifier"
+      },
+      "module_type": {
+        "type": "string",
+        "enum": ["transistor", "cpu", "memory", "led", "circuit", "network"],
+        "description": "Technology module type"
+      },
+      "voxel_grid": {
+        "type": "object",
+        "properties": {
+          "width": { "type": "integer", "default": 16 },
+          "height": { "type": "integer", "default": 16 },
+          "depth": { "type": "integer", "default": 16 },
+          "cells": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "x": { "type": "integer" },
+                "y": { "type": "integer" },
+                "z": { "type": "integer" },
+                "material": { "type": "string" },
+                "temperature_k": { "type": "number" },
+                "active": { "type": "boolean" }
+              }
+            }
+          }
+        }
+      },
+      "component_labels": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "component_id": { "type": "string" },
+            "name": { "type": "string" },
+            "position": { "type": "string" },
+            "age_descriptions": {
+              "type": "object",
+              "properties": {
+                "elementary": { "type": "string" },
+                "middle": { "type": "string" },
+                "high": { "type": "string" }
+              }
+            }
+          }
+        }
+      },
+      "journey_steps": {
+        "type": "array",
+        "items": { "type": "string" },
+        "description": "Steps to explore this section"
+      },
+      "fun_facts": {
+        "type": "object",
+        "properties": {
+          "elementary": { "type": "array", "items": { "type": "string" } },
+          "middle": { "type": "array", "items": { "type": "string" } },
+          "high": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "required": ["section_id", "module_type"]
+  },
+  
+  "preset_sections": {
+    "transistor_mosfet": {
+      "module_type": "transistor",
+      "component_labels": [
+        {
+          "component_id": "source",
+          "name": "Source",
+          "age_descriptions": {
+            "elementary": "Where the electrons start their journey!",
+            "middle": "The terminal where current enters the transistor channel.",
+            "high": "Heavily doped n+ region providing charge carriers."
+          }
+        },
+        {
+          "component_id": "drain",
+          "name": "Drain",
+          "age_descriptions": {
+            "elementary": "Where electrons come out after their journey!",
+            "middle": "The terminal where current exits the transistor.",
+            "high": "Drain-source voltage creates electric field for carrier drift."
+          }
+        },
+        {
+          "component_id": "gate",
+          "name": "Gate",
+          "age_descriptions": {
+            "elementary": "The magic switch that controls everything!",
+            "middle": "The control terminal that opens or closes the channel.",
+            "high": "Capacitive control electrode modulating channel conductivity."
+          }
+        }
+      ],
+      "journey_steps": ["voltage", "gate", "channel", "output"],
+      "fun_facts": {
+        "elementary": [
+          "The first transistor was as big as a fingernail!",
+          "Your phone has BILLIONS of transistors!",
+          "Transistors are smaller than a virus!"
+        ],
+        "middle": [
+          "Modern transistors are only 5 nanometers wide!",
+          "Moore's Law predicts transistors double every 2 years.",
+          "Transistors replaced vacuum tubes in computers."
+        ],
+        "high": [
+          "FinFETs use 3D fin structures for better control.",
+          "Gate-all-around transistors are the next generation.",
+          "Quantum tunneling limits scaling below 1nm."
+        ]
+      }
+    }
+  }
+}

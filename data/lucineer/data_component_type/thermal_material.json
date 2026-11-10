@@ -1,0 +1,127 @@
+{
+  "comment": "Thermal Material Data Component - Material properties for thermal simulation",
+  "schema_version": "1.21.1",
+  "loader": "neoforge:data_component_type",
+  
+  "name": "lucineer:thermal_material",
+  "persistent": true,
+  "network_synced": true,
+  
+  "schema": {
+    "type": "object",
+    "properties": {
+      "material_id": {
+        "type": "string",
+        "description": "Unique material identifier"
+      },
+      "name": {
+        "type": "string",
+        "description": "Human-readable material name"
+      },
+      "category": {
+        "type": "string",
+        "enum": ["semiconductor", "dielectric", "metal", "phase_change", "biological", "interfacial"],
+        "description": "Material category"
+      },
+      "thermal_conductivity_w_mk": {
+        "type": "number",
+        "minimum": 0.01,
+        "maximum": 1000.0,
+        "description": "Thermal conductivity in W/mK"
+      },
+      "specific_heat_j_kgk": {
+        "type": "number",
+        "minimum": 1.0,
+        "maximum": 10000.0,
+        "description": "Specific heat capacity in J/kgK"
+      },
+      "density_kg_m3": {
+        "type": "number",
+        "minimum": 1.0,
+        "maximum": 25000.0,
+        "description": "Material density in kg/m³"
+      },
+      "thermal_diffusivity_m2_s": {
+        "type": "number",
+        "description": "Calculated: k / (ρ * cp)"
+      },
+      "melting_point_k": {
+        "type": "number",
+        "minimum": 0,
+        "description": "Melting temperature in Kelvin"
+      },
+      "electrical_conductivity_s_m": {
+        "type": "number",
+        "description": "Electrical conductivity in S/m"
+      }
+    },
+    "required": ["material_id", "name", "category", "thermal_conductivity_w_mk", "specific_heat_j_kgk", "density_kg_m3"]
+  },
+  
+  "presets": {
+    "silicon": {
+      "material_id": "silicon",
+      "name": "Silicon",
+      "category": "semiconductor",
+      "thermal_conductivity_w_mk": 148.0,
+      "specific_heat_j_kgk": 700.0,
+      "density_kg_m3": 2329.0,
+      "melting_point_k": 1687,
+      "electrical_conductivity_s_m": 1.56e-3
+    },
+    "silicon_thin_film": {
+      "material_id": "silicon_thin_film",
+      "name": "Silicon Thin Film (100nm)",
+      "category": "semiconductor",
+      "thermal_conductivity_w_mk": 50.0,
+      "specific_heat_j_kgk": 700.0,
+      "density_kg_m3": 2329.0,
+      "melting_point_k": 1687
+    },
+    "sio2": {
+      "material_id": "sio2",
+      "name": "Silicon Dioxide",
+      "category": "dielectric",
+      "thermal_conductivity_w_mk": 1.4,
+      "specific_heat_j_kgk": 745.0,
+      "density_kg_m3": 2200.0,
+      "melting_point_k": 1986
+    },
+    "copper": {
+      "material_id": "copper",
+      "name": "Copper",
+      "category": "metal",
+      "thermal_conductivity_w_mk": 400.0,
+      "specific_heat_j_kgk": 385.0,
+      "density_kg_m3": 8960.0,
+      "melting_point_k": 1358,
+      "electrical_conductivity_s_m": 5.96e7
+    },
+    "copper_damascene": {
+      "material_id": "copper_damascene",
+      "name": "Copper Damascene",
+      "category": "metal",
+      "thermal_conductivity_w_mk": 300.0,
+      "specific_heat_j_kgk": 385.0,
+      "density_kg_m3": 8960.0,
+      "melting_point_k": 1358
+    },
+    "gst": {
+      "material_id": "gst",
+      "name": "Ge2Sb2Te5 (GST)",
+      "category": "phase_change",
+      "thermal_conductivity_w_mk": 0.5,
+      "specific_heat_j_kgk": 210.0,
+      "density_kg_m3": 6000.0,
+      "melting_point_k": 616
+    },
+    "cytoplasm": {
+      "material_id": "cytoplasm",
+      "name": "Cytoplasm",
+      "category": "biological",
+      "thermal_conductivity_w_mk": 0.6,
+      "specific_heat_j_kgk": 4186.0,
+      "density_kg_m3": 1000.0
+    }
+  }
+}

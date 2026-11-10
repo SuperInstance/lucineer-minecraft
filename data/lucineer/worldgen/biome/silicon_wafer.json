@@ -1,0 +1,85 @@
+{
+  "comment": "Silicon Wafer Biome - Main chip manufacturing environment",
+  "schema_version": "1.21.1",
+  
+  "name": "lucineer:silicon_wafer",
+  "fallback": "minecraft:the_void",
+  
+  "temperature": 1.0,
+  "downfall": 0.0,
+  "has_precipitation": false,
+  
+  "effects": {
+    "sky_color": 2028608,
+    "fog_color": 2368548,
+    "water_color": 4159204,
+    "water_fog_color": 329011,
+    "mood_sound": {
+      "sound": "minecraft:ambient.cave",
+      "tick_delay": 6000,
+      "block_search_extent": 8,
+      "offset": 2.0
+    },
+    "additions_sound": {
+      "sound": "minecraft:ambient.nether_wastes.additions",
+      "tick_chance": 0.0111
+    },
+    "music": {
+      "sound": "minecraft:music.nether.nether_wastes",
+      "min_delay": 12000,
+      "max_delay": 24000,
+      "replace_current_music": false
+    },
+    "particle": {
+      "options": {
+        "type": "minecraft:smoke"
+      },
+      "probability": 0.005
+    }
+  },
+  
+  "spawners": {},
+  "spawn_costs": {},
+  "carvers": {},
+  "features": [],
+  
+  "lucineer:thermal_zone": {
+    "zone_type": "active_circuit",
+    "base_temperature_k": 320.0,
+    "max_temperature_k": 400.0,
+    "heat_sources": [
+      {
+        "type": "mac_array",
+        "power_density_w_cm2": 50.0,
+        "distribution": "gaussian",
+        "sigma": 5.0
+      }
+    ],
+    "cooling": {
+      "type": "forced_convection",
+      "h_w_m2k": 100000.0,
+      "coolant_temp_k": 298.0
+    }
+  },
+  
+  "lucineer:materials": {
+    "primary": {
+      "name": "silicon",
+      "thermal_conductivity_w_mk": 148.0,
+      "specific_heat_j_kgk": 700.0,
+      "density_kg_m3": 2329.0
+    },
+    "interconnect": {
+      "name": "copper_damascene",
+      "thermal_conductivity_w_mk": 300.0,
+      "specific_heat_j_kgk": 385.0,
+      "density_kg_m3": 8960.0
+    },
+    "dielectric": {
+      "name": "sio2",
+      "thermal_conductivity_w_mk": 1.4,
+      "specific_heat_j_kgk": 745.0,
+      "density_kg_m3": 2200.0
+    }
+  }
+}

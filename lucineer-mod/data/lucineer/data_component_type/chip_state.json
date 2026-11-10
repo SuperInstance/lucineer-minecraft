@@ -1,0 +1,136 @@
+{
+  "comment": "Chip Block State - Core data component for chip design in Minecraft",
+  "schema_version": "1.21.1",
+  "loader": "neoforge:data_component_type",
+  
+  "name": "lucineer:chip_state",
+  "persistent": true,
+  "network_synced": true,
+  
+  "schema": {
+    "type": "object",
+    "properties": {
+      "chip_id": {
+        "type": "string",
+        "description": "Unique identifier for this chip instance"
+      },
+      "chip_type": {
+        "type": "string",
+        "enum": ["LUCI_1", "LUCI_3", "LUCI_7", "CUSTOM", "LOGIC", "MEMORY", "AI_ACCELERATOR"],
+        "description": "Type of chip"
+      },
+      "design_stage": {
+        "type": "string",
+        "enum": ["RTL_DESIGN", "SYNTHESIS", "FLOORPLANNING", "PLACEMENT", "CTS", "ROUTING", "TIMING_SIGNOFF", "VERIFICATION", "TAPEOUT", "FABRICATED"],
+        "default": "RTL_DESIGN",
+        "description": "Current design stage (RTL-to-GDSII)"
+      },
+      "rtl_definition": {
+        "type": "object",
+        "properties": {
+          "module_name": { "type": "string" },
+          "inputs": { "type": "array", "items": { "type": "string" } },
+          "outputs": { "type": "array", "items": { "type": "string" } },
+          "logic_equations": { "type": "array", "items": { "type": "string" } },
+          "verilog_code": { "type": "string" }
+        }
+      },
+      "gate_netlist": {
+        "type": "object",
+        "properties": {
+          "total_gates": { "type": "integer" },
+          "gate_types": {
+            "type": "object",
+            "additionalProperties": { "type": "integer" }
+          },
+          "interconnects": { "type": "integer" }
+        }
+      },
+      "floorplan": {
+        "type": "object",
+        "properties": {
+          "width_um": { "type": "number" },
+          "height_um": { "type": "number" },
+          "aspect_ratio": { "type": "number" },
+          "utilization": { "type": "number" },
+          "regions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string" },
+                "x": { "type": "number" },
+                "y": { "type": "number" },
+                "width": { "type": "number" },
+                "height": { "type": "number" }
+              }
+            }
+          }
+        }
+      },
+      "timing": {
+        "type": "object",
+        "properties": {
+          "clock_frequency_mhz": { "type": "number" },
+          "critical_path_ns": { "type": "number" },
+          "setup_slack_ns": { "type": "number" },
+          "hold_slack_ns": { "type": "number" },
+          "timing_met": { "type": "boolean" }
+        }
+      },
+      "thermal": {
+        "type": "object",
+        "properties": {
+          "power_w": { "type": "number" },
+          "peak_temperature_k": { "type": "number" },
+          "thermal_resistance_kw": { "type": "number" },
+          "hotspots": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "x": { "type": "integer" },
+                "y": { "type": "integer" },
+                "temperature_k": { "type": "number" }
+              }
+            }
+          },
+          "cooling_solution": {
+            "type": "string",
+            "enum": ["NONE", "PASSIVE_HEATSINK", "ACTIVE_FAN", "LIQUID_COOLING"]
+          }
+        }
+      },
+      "verification": {
+        "type": "object",
+        "properties": {
+          "drc_clean": { "type": "boolean" },
+          "lvs_clean": { "type": "boolean" },
+          "drc_violations": { "type": "integer" },
+          "antenna_violations": { "type": "integer" }
+        }
+      },
+      "manufacturing": {
+        "type": "object",
+        "properties": {
+          "process_node_nm": { "type": "integer" },
+          "yield_estimate_percent": { "type": "number" },
+          "mask_layers": { "type": "integer" },
+          "die_area_mm2": { "type": "number" },
+          "package_type": { "type": "string" }
+        }
+      },
+      "xp_earned": { "type": "integer", "default": 0 },
+      "created_by": { "type": "string" },
+      "created_at": { "type": "string", "format": "date-time" }
+    },
+    "required": ["chip_id", "chip_type"]
+  },
+  
+  "gameplay_integration": {
+    "block_entity": "lucineer:chip_block_entity",
+    "interaction": "Right-click with tool to interact",
+    "visualization": "3D voxel view when placed",
+    "redstone": "Emits redstone signal based on output"
+  }
+}

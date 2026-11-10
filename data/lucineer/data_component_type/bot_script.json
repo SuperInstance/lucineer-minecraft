@@ -1,0 +1,93 @@
+{
+  "__comment": "Bot Script Data Component - Defines executable scripts that run locally without API calls",
+  "type": "minecraft:data_component_type",
+  "fields": {
+    "script_id": {
+      "type": "string",
+      "description": "Unique identifier for the script"
+    },
+    "script_name": {
+      "type": "string", 
+      "description": "Human-readable name"
+    },
+    "script_type": {
+      "type": "string",
+      "enum": ["ATOMIC", "SEQUENCE", "PARALLEL", "LOOP", "CONDITIONAL"],
+      "description": "Execution pattern type"
+    },
+    "actions": {
+      "type": "list",
+      "element_type": "action_node",
+      "description": "Hierarchical action tree"
+    },
+    "parameters": {
+      "type": "compound",
+      "description": "Configurable parameters with defaults"
+    },
+    "triggers": {
+      "type": "list",
+      "element_type": "trigger_condition",
+      "description": "Conditions that activate this script"
+    },
+    "execution_metrics": {
+      "type": "compound",
+      "description": "Success rate, execution count, average time"
+    },
+    "tier": {
+      "type": "string",
+      "enum": ["BUILT_IN", "LEARNED", "PROPOSED"],
+      "description": "Skill tier based on proven performance"
+    },
+    "educational_context": {
+      "type": "string",
+      "description": "Learning explanation for this script"
+    }
+  },
+  "example": {
+    "script_id": "mining_strip_tunnel_v1",
+    "script_name": "Strip Mining Tunnel",
+    "script_type": "LOOP",
+    "actions": [
+      {
+        "type": "ATOMIC",
+        "action": "mine_forward",
+        "parameters": {"blocks": 1}
+      },
+      {
+        "type": "CONDITIONAL",
+        "condition": "iteration % 7 == 0",
+        "children": [
+          {
+            "type": "ATOMIC",
+            "action": "place_torch",
+            "parameters": {"position": "ceiling"}
+          }
+        ]
+      }
+    ],
+    "parameters": {
+      "length": {"type": "int", "default": 64, "min": 1, "max": 1000},
+      "y_level": {"type": "int", "default": -59, "min": -64, "max": 320},
+      "torch_interval": {"type": "int", "default": 7, "min": 1, "max": 20}
+    },
+    "triggers": [
+      {"type": "PLAYER_ACTION", "condition": "command:strip_mine"},
+      {"type": "TIME", "condition": "daily_reset"}
+    ],
+    "execution_metrics": {
+      "execution_count": 0,
+      "success_count": 0,
+      "failure_count": 0,
+      "success_rate": 0.98,
+      "average_time_ms": 500
+    },
+    "tier": "BUILT_IN",
+    "educational_context": "Strip mining at Y=-59 is optimal for diamond finding due to ore distribution."
+  },
+  "minecraft_integration": {
+    "item_type": "lucineer:bot_script",
+    "block_entity": "lucineer:script_executor",
+    "tooltip_format": "§b{name}§r\n§7{description}\n§eSuccess Rate: {success_rate}%",
+    "creative_tab": "lucineer:automation"
+  }
+}

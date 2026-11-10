@@ -1,0 +1,124 @@
+{
+  "__comment": "Execution State Data Component - Tracks current execution state for bot/agent hybrid system",
+  "type": "minecraft:data_component_type", 
+  "fields": {
+    "state_id": {
+      "type": "string",
+      "description": "Unique state identifier"
+    },
+    "current_mode": {
+      "type": "string",
+      "enum": ["IDLE", "SCRIPT_RUNNING", "AGENT_THINKING", "WAITING_INPUT", "ERROR_RECOVERY"],
+      "description": "Current execution mode"
+    },
+    "current_script": {
+      "type": "string",
+      "description": "ID of currently executing script (if any)"
+    },
+    "action_queue": {
+      "type": "list",
+      "element_type": "compound",
+      "description": "Pending actions to execute"
+    },
+    "current_action_index": {
+      "type": "int",
+      "description": "Index of current action in queue"
+    },
+    "context": {
+      "type": "compound",
+      "description": "Current execution context",
+      "fields": {
+        "position": "block_pos",
+        "health": "float",
+        "inventory": "compound",
+        "nearby_entities": "list",
+        "nearby_blocks": "list",
+        "current_task": "string"
+      }
+    },
+    "escalation_history": {
+      "type": "list",
+      "element_type": "compound",
+      "description": "History of agent escalations for learning"
+    },
+    "performance_metrics": {
+      "type": "compound",
+      "description": "Real-time performance tracking",
+      "fields": {
+        "total_actions": "int",
+        "successful_actions": "int",
+        "failed_actions": "int",
+        "api_calls_made": "int",
+        "api_calls_avoided": "int",
+        "total_time_ms": "long"
+      }
+    },
+    "learning_state": {
+      "type": "compound",
+      "description": "State for progressive learning",
+      "fields": {
+        "current_skill_tier": {"enum": ["BEGINNER", "INTERMEDIATE", "ADVANCED", "EXPERT", "MASTER"]},
+        "skills_learned": "list<string>",
+        "pending_promotions": "list<string>",
+        "recent_failures": "list<compound>"
+      }
+    }
+  },
+  "example": {
+    "state_id": "exec_state_main",
+    "current_mode": "SCRIPT_RUNNING",
+    "current_script": "mining_strip_tunnel_v1",
+    "action_queue": [
+      {"type": "ATOMIC", "action": "mine_forward", "params": {"blocks": 1}},
+      {"type": "ATOMIC", "action": "mine_forward", "params": {"blocks": 1}},
+      {"type": "ATOMIC", "action": "place_torch", "params": {"position": "ceiling"}}
+    ],
+    "current_action_index": 1,
+    "context": {
+      "position": {"x": 100, "y": -59, "z": -200},
+      "health": 20.0,
+      "inventory": {"pickaxe": 1, "torches": 50},
+      "nearby_entities": [],
+      "nearby_blocks": ["stone", "stone", "diamond_ore"],
+      "current_task": "strip_mine"
+    },
+    "escalation_history": [
+      {
+        "timestamp": 1000,
+        "trigger": "unknown_block",
+        "resolution": "agent_identified_as_diamond_ore",
+        "outcome": "success"
+      }
+    ],
+    "performance_metrics": {
+      "total_actions": 500,
+      "successful_actions": 487,
+      "failed_actions": 13,
+      "api_calls_made": 3,
+      "api_calls_avoided": 487,
+      "total_time_ms": 25000
+    },
+    "learning_state": {
+      "current_skill_tier": "INTERMEDIATE",
+      "skills_learned": ["strip_mine_optimized", "redstone_clock_builder"],
+      "pending_promotions": ["auto_farm_wheat"],
+      "recent_failures": []
+    }
+  },
+  "minecraft_integration": {
+    "block_entity": "lucineer:execution_state_manager",
+    "gui_screen": "lucineer:execution_monitor",
+    "commands": [
+      "/bot status",
+      "/bot pause",
+      "/bot resume",
+      "/bot history",
+      "/bot learn <skill>"
+    ],
+    "hologram_display": {
+      "mode_indicator": "Floating text showing current mode",
+      "action_preview": "Next 3 actions rendered as particles",
+      "status_bar": "Progress bar for current script"
+    }
+  }
+}

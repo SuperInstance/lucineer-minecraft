@@ -1,0 +1,74 @@
+{
+  "comment": "Thermal Test Chamber - Flat dimension for controlled testing",
+  "schema_version": "1.21.1",
+  "type": "lucineer:thermal_test_chamber",
+  
+  "generator": {
+    "type": "minecraft:flat",
+    "settings": {
+      "layers": [
+        {
+          "block": "minecraft:iron_block",
+          "height": 1
+        },
+        {
+          "block": "minecraft:smooth_stone",
+          "height": 3
+        }
+      ],
+      "structure_overrides": []
+    }
+  },
+  
+  "lucineer:test_config": {
+    "test_types": [
+      "steady_state_thermal",
+      "transient_thermal",
+      "heat_source_distribution",
+      "boundary_condition_validation"
+    ],
+    
+    "default_test_params": {
+      "grid_resolution": [100, 100, 1],
+      "cell_size_nm": 10,
+      "ambient_temp_k": 300.0,
+      "max_iterations": 10000,
+      "convergence_criteria": 1.0e-6
+    },
+    
+    "available_materials": [
+      "silicon",
+      "silicon_thin_film",
+      "silicon_on_insulator",
+      "sio2",
+      "sio2_porous",
+      "si3n4",
+      "hfo2",
+      "copper",
+      "copper_damascene",
+      "aluminum",
+      "tungsten",
+      "titanium",
+      "gst",
+      "gst_crystalline",
+      "cytoplasm",
+      "lipid_membrane"
+    ],
+    
+    "boundary_presets": {
+      "adiabatic": {
+        "type": "neumann",
+        "flux_w_m2": 0.0
+      },
+      "isothermal": {
+        "type": "dirichlet",
+        "temperature_k": 300.0
+      },
+      "convective": {
+        "type": "convective",
+        "h_w_m2k": 1.0e5,
+        "ambient_k": 300.0
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "type": "neoforge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "lucineer:learning_tier",
+          "tier": 1
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "pattern": [
+          " T ",
+          "RCR",
+          " T "
+        ],
+        "key": {
+          "T": { "item": "lucineer:transistor_item" },
+          "R": { "item": "minecraft:redstone" },
+          "C": { "item": "minecraft:copper_ingot" }
+        },
+        "result": {
+          "id": "lucineer:logic_gate_item",
+          "count": 2
+        },
+        "category": "lucineer:electronics",
+        "display": {
+          "gate_types": ["AND", "OR", "NOT", "NAND", "NOR", "XOR", "XNOR"]
+        }
+      }
+    }
+  ],
+  "comment": "Unlock: Complete 'Logic Gates' lesson"
+}

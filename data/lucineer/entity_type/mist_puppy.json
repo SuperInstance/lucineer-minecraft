@@ -1,0 +1,95 @@
+{
+  "comment": "MIST Puppy Companion - Progressive revelation teaching entity",
+  "schema_version": "1.21.1",
+  "loader": "neoforge:entity_type",
+  
+  "name": "lucineer:mist_puppy",
+  "category": "creature",
+  "spawn_egg": {
+    "primary_color": "#D4A574",
+    "secondary_color": "#8B4513"
+  },
+  
+  "properties": {
+    "max_health": 20.0,
+    "movement_speed": 0.3,
+    "follow_range": 16.0,
+    "tamable": true,
+    "breedable": true,
+    "breeding_item": "minecraft:bone"
+  },
+  
+  "teaching_stages": {
+    "IDENTITY": {
+      "stage": 0,
+      "teachings": [
+        { "reveal": "You are a dog. A special kind of dog.", "insight": "self-awareness", "xp": 5 },
+        { "reveal": "You live in a kennel with many other dogs.", "insight": "community", "xp": 5 },
+        { "reveal": "This is a farm. Farms have animals.", "insight": "environment", "xp": 5 },
+        { "reveal": "The animals are called sheep. We help the farmer with them.", "insight": "purpose", "xp": 10 }
+      ]
+    },
+    "SHEEP": {
+      "stage": 1,
+      "teachings": [
+        { "reveal": "Sheep are gentle. They follow each other.", "insight": "flocking", "xp": 10 },
+        { "reveal": "Sheep eat grass. We guide them to good grass.", "insight": "guidance", "xp": 10 },
+        { "reveal": "When sheep are scared, they run together.", "insight": "herd-behavior", "xp": 15 }
+      ]
+    },
+    "RAMS": {
+      "stage": 2,
+      "teachings": [
+        { "reveal": "Not all sheep are the same. Some are different.", "insight": "diversity", "xp": 15 },
+        { "reveal": "Rams are sheep, but bigger. They have curved horns.", "insight": "variation", "xp": 15 },
+        { "reveal": "Rams can be stubborn. They need patience, not force.", "insight": "patience", "xp": 20 }
+      ]
+    },
+    "WORK": {
+      "stage": 3,
+      "teachings": [
+        { "reveal": "Every dog on this farm has a job.", "insight": "trade", "xp": 20 },
+        { "reveal": "My job is to teach you. Your job is to learn.", "insight": "mentorship", "xp": 20 },
+        { "reveal": "Work is how we help the farm family.", "insight": "contribution", "xp": 25 },
+        { "reveal": "Good work takes time. You are just beginning.", "insight": "patience", "xp": 25 }
+      ]
+    },
+    "FAMILY": {
+      "stage": 4,
+      "teachings": [
+        { "reveal": "Your mother was a great working dog.", "insight": "lineage", "xp": 30 },
+        { "reveal": "Her mother before her. Many generations.", "insight": "heritage", "xp": 30 },
+        { "reveal": "Each generation learns from the one before.", "insight": "knowledge-transfer", "xp": 35 },
+        { "reveal": "Someday, you will teach your own puppies.", "insight": "legacy", "xp": 50 }
+      ]
+    }
+  },
+  
+  "ai_concepts": {
+    "tabula_rosa": {
+      "description": "Your child experiences being a blank-slate AI model",
+      "metaphor": "Puppy starts knowing nothing, learns only from teacher"
+    },
+    "knowledge_distillation": {
+      "description": "Each generation represents AI knowledge transfer",
+      "metaphor": "Parent puppies pass learned insights to offspring"
+    },
+    "progressive_revelation": {
+      "description": "Complexity revealed gradually, like training specialized models",
+      "metaphor": "Simple sheep first, then stubborn rams (edge cases)"
+    }
+  },
+  
+  "inheritance": {
+    "insight_transfer_rate": 0.7,
+    "mutation_rate": 0.1,
+    "max_inherited_insights": 5
+  },
+  
+  "level_progression": {
+    "apprentice": { "level": 1, "insights_required": 5 },
+    "journeyman": { "level": 2, "insights_required": 15 },
+    "master": { "level": 3, "insights_required": 30 },
+    "elder": { "level": 4, "insights_required": 50 }
+  }
+}

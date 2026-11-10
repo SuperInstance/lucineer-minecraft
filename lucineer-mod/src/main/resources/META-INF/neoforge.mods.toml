@@ -1,0 +1,30 @@
+modLoader = "javafml"
+loaderVersion = "[4,)"
+license = "MIT"
+issueTrackerURL = "https://github.com/lucineer/minecraft-mod/issues"
+
+[[mods]]
+modId = "lucineer"
+version = "${file.jarVersion}"
+displayName = "Lucineer STEM Studio"
+authors = "Lucineer Team"
+description = '''
+Learn electronics, chip design, thermal engineering, and AI through Minecraft!
+
+Features:
+• Octet Switcher - Learn binary counting with 8 switches
+• Logic Gate Workshop - Build AND, OR, NOT, XOR gates
+• Chip Designer Lab - Layout transistors on silicon
+• Binary Calculator - Watch carries ripple through adders
+• Neural Network Explorer - Build and train AI
+• Thermal Simulation - Manage heat in your designs
+• AI-Generated Lessons - Infinite learning content
+
+"Incredible Machine meets Minecraft meets AI Education"
+'''
+
+[[mixins]]
+config = "lucineer.mixins.json"
+
+[[accessTransformers]]
+file = "META-INF/accesstransformer.cfg"

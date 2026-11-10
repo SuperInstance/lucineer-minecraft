@@ -1,0 +1,114 @@
+{
+  "adventure_id": "octet_switcher",
+  "title": "🎛️ The Octet Switcher",
+  "category": "BINARY",
+  "difficulty": 1,
+  "description": "Learn how computers count using binary! 8 switches = 256 possibilities",
+  "objectives": [
+    {
+      "id": "reach_42",
+      "description": "Find the Answer to Everything (42)",
+      "target_value": 42,
+      "reward_xp": 50
+    },
+    {
+      "id": "reach_128",
+      "description": "Reach half of maximum (128)",
+      "target_value": 128,
+      "reward_xp": 30
+    },
+    {
+      "id": "reach_255",
+      "description": "Reach maximum value (255)",
+      "target_value": 255,
+      "reward_xp": 50
+    },
+    {
+      "id": "discover_50",
+      "description": "Discover 50 different numbers",
+      "target_value": 50,
+      "reward_xp": 75
+    },
+    {
+      "id": "discover_100",
+      "description": "Discover 100 different numbers",
+      "target_value": 100,
+      "reward_xp": 100
+    },
+    {
+      "id": "discover_all",
+      "description": "Master: Discover all 256 numbers!",
+      "target_value": 256,
+      "reward_xp": 500
+    },
+    {
+      "id": "quick_calc",
+      "description": "Reach a target number in under 5 seconds",
+      "target_value": 1,
+      "reward_xp": 40
+    }
+  ],
+  "game_mechanics": {
+    "interaction_type": "SWITCH_TOGGLES",
+    "win_condition": "discover_all",
+    "hints_enabled": true,
+    "switch_count": 8,
+    "value_range": [0, 255]
+  },
+  "visual_theme": {
+    "primary_color": "#22c55e",
+    "secondary_color": "#8b5cf6",
+    "particle_effects": true,
+    "ambient_sounds": ["block.note_block.bit", "block.redstone_torch.burnout"]
+  },
+  "npc_guide": {
+    "name": "Bitzy the Binary Bot",
+    "skin": "lucineer:textures/entity/bitzy.png",
+    "dialogue_style": "silly_educational",
+    "personality": "Enthusiastic, makes math fun with jokes and puns"
+  },
+  "rewards": {
+    "xp_base": 10,
+    "items": [
+      {
+        "item": "lucineer:binary_badge",
+        "condition": "discover_50"
+      },
+      {
+        "item": "lucineer:octet_master_cape",
+        "condition": "discover_all"
+      }
+    ],
+    "unlock_next": ["logic_gate_builder", "binary_adder"]
+  },
+  "fun_facts": [
+    "8 bits = 1 byte = 256 possible values!",
+    "Your computer talks in binary all day!",
+    "IP addresses are 4 octets like this!",
+    "RGB colors use 3 octets (0-255 each)!",
+    "ASCII characters fit in one octet!",
+    "Every pixel color is 3 octets!",
+    "Minecraft uses tons of octets for block positions!",
+    "A byte can store any ASCII character!",
+    "IPv4 addresses are just 4 bytes!",
+    "256 is 2^8 - that's why it's special!"
+  ],
+  "special_numbers": {
+    "0": {"emoji": "😴", "message": "Zzz... Nothing's on! Flip some switches!"},
+    "1": {"emoji": "🐣", "message": "A baby number! So tiny and cute!"},
+    "8": {"emoji": "🐙", "message": "OCTOPUS! 8 arms, 8 bits!"},
+    "42": {"emoji": "🌌", "message": "THE ANSWER TO EVERYTHING!"},
+    "64": {"emoji": "🕹️", "message": "NINTENDO 64 MEMORIES!"},
+    "100": {"emoji": "💯", "message": "ONE HUNDRED PERCENT!"},
+    "127": {"emoji": "🌐", "message": "MAX SIGNED BYTE!"},
+    "128": {"emoji": "💾", "message": "HALF WAY THERE! 128!"},
+    "255": {"emoji": "🔥", "message": "MAXIMUM POWER!"}
+  },
+  "in_game_integration": {
+    "block_type": "lucineer:octet_switcher_block",
+    "ui_scale": 1.0,
+    "redstone_output": true,
+    "output_power_formula": "value / 255 * 15",
+    "comparator_mode": true
+  }
+}

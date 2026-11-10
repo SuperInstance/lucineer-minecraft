@@ -1,0 +1,123 @@
+{
+  "comment": "LUCI Chip Data Component - Represents an AI inference cartridge",
+  "schema_version": "1.21.1",
+  "loader": "neoforge:data_component_type",
+  
+  "name": "lucineer:luci_chip",
+  "persistent": true,
+  "network_synced": true,
+  
+  "schema": {
+    "type": "object",
+    "properties": {
+      "variant": {
+        "type": "string",
+        "enum": ["LUCI-1", "LUCI-3", "LUCI-7", "CUSTOM"],
+        "description": "Chip variant identifier"
+      },
+      "parameters": {
+        "type": "string",
+        "pattern": "^[0-9]+B?$",
+        "description": "Model parameter count (e.g., '1B', '3B', '7B')"
+      },
+      "power_watts": {
+        "type": "number",
+        "minimum": 0.5,
+        "maximum": 100.0,
+        "description": "Power consumption in watts"
+      },
+      "tokens_per_second": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 1000,
+        "description": "Inference speed"
+      },
+      "process_node_nm": {
+        "type": "integer",
+        "enum": [5, 7, 10, 14, 22, 28, 40, 65, 180],
+        "description": "Manufacturing process node in nanometers"
+      },
+      "weight_type": {
+        "type": "string",
+        "enum": ["fp32", "fp16", "bf16", "int8", "int4", "ternary"],
+        "default": "ternary",
+        "description": "Weight precision type"
+      },
+      "mask_locked": {
+        "type": "boolean",
+        "default": true,
+        "description": "Whether weights are embedded in silicon"
+      },
+      "model_reference": {
+        "type": "string",
+        "description": "Reference model architecture"
+      },
+      "thermal_properties": {
+        "type": "object",
+        "properties": {
+          "max_temperature_k": {
+            "type": "number",
+            "default": 400.0
+          },
+          "thermal_design_power_w": {
+            "type": "number",
+            "default": 10.0
+          },
+          "junction_ambient_resistance_kw": {
+            "type": "number",
+            "default": 5.0
+          }
+        }
+      }
+    },
+    "required": ["variant", "parameters", "power_watts", "tokens_per_second"]
+  },
+  
+  "defaults": {
+    "LUCI-1": {
+      "variant": "LUCI-1",
+      "parameters": "1B",
+      "power_watts": 2.0,
+      "tokens_per_second": 15,
+      "process_node_nm": 28,
+      "weight_type": "ternary",
+      "mask_locked": true,
+      "model_reference": "BitNet b1.58-2B-4T",
+      "thermal_properties": {
+        "max_temperature_k": 400.0,
+        "thermal_design_power_w": 2.0,
+        "junction_ambient_resistance_kw": 15.0
+      }
+    },
+    "LUCI-3": {
+      "variant": "LUCI-3",
+      "parameters": "3B",
+      "power_watts": 5.0,
+      "tokens_per_second": 25,
+      "process_node_nm": 28,
+      "weight_type": "ternary",
+      "mask_locked": true,
+      "model_reference": "BitNet b1.58-3B",
+      "thermal_properties": {
+        "max_temperature_k": 400.0,
+        "thermal_design_power_w": 5.0,
+        "junction_ambient_resistance_kw": 10.0
+      }
+    },
+    "LUCI-7": {
+      "variant": "LUCI-7",
+      "parameters": "7B",
+      "power_watts": 10.0,
+      "tokens_per_second": 35,
+      "process_node_nm": 28,
+      "weight_type": "ternary",
+      "mask_locked": true,
+      "model_reference": "BitNet b1.58-7B",
+      "thermal_properties": {
+        "max_temperature_k": 400.0,
+        "thermal_design_power_w": 10.0,
+        "junction_ambient_resistance_kw": 8.0
+      }
+    }
+  }
+}

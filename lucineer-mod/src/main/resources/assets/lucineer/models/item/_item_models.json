@@ -1,0 +1,134 @@
+{
+  "item.lucineer.magnifying_glass": {
+    "parent": "minecraft:item/handheld",
+    "textures": {
+      "layer0": "lucineer:item/magnifying_glass"
+    }
+  },
+  "item.lucineer.thermal_probe": {
+    "parent": "minecraft:item/handheld",
+    "textures": {
+      "layer0": "lucineer:item/thermal_probe"
+    }
+  },
+  "item.lucineer.timing_analyzer": {
+    "parent": "minecraft:item/handheld",
+    "textures": {
+      "layer0": "lucineer:item/timing_analyzer"
+    }
+  },
+  "item.lucineer.logic_analyzer": {
+    "parent": "minecraft:item/handheld",
+    "textures": {
+      "layer0": "lucineer:item/logic_analyzer"
+    }
+  },
+  "item.lucineer.transistor": {
+    "parent": "minecraft:item/generated",
+    "textures": {
+      "layer0": "lucineer:item/transistor"
+    }
+  },
+  "item.lucineer.logic_gate": {
+    "parent": "minecraft:item/generated",
+    "textures": {
+      "layer0": "lucineer:item/logic_gate"
+    }
+  },
+  "item.lucineer.wire_segment": {
+    "parent": "minecraft:item/generated",
+    "textures": {
+      "layer0": "lucineer:item/wire_segment"
+    }
+  },
+  "item.lucineer.capacitor": {
+    "parent": "minecraft:item/generated",
+    "textures": {
+      "layer0": "lucineer:item/capacitor"
+    }
+  },
+  "item.lucineer.input_cell": {
+    "parent": "minecraft:item/generated",
+    "textures": {
+      "layer0": "lucineer:item/input_cell"
+    }
+  },
+  "item.lucineer.neuron_cell": {
+    "parent": "minecraft:item/generated",
+    "textures": {
+      "layer0": "lucineer:item/neuron_cell"
+    }
+  },
+  "item.lucineer.weight_item": {
+    "parent": "minecraft:item/generated",
+    "textures": {
+      "layer0": "lucineer:item/weight_item"
+    }
+  },
+  "item.lucineer.output_cell": {
+    "parent": "minecraft:item/generated",
+    "textures": {
+      "layer0": "lucineer:item/output_cell"
+    }
+  },
+  "item.lucineer.luci_1_chip": {
+    "parent": "minecraft:item/generated",
+    "textures": {
+      "layer0": "lucineer:item/luci_1_chip"
+    }
+  },
+  "item.lucineer.luci_3_chip": {
+    "parent": "minecraft:item/generated",
+    "textures": {
+      "layer0": "lucineer:item/luci_3_chip"
+    }
+  },
+  "item.lucineer.luci_7_chip": {
+    "parent": "minecraft:item/generated",
+    "textures": {
+      "layer0": "lucineer:item/luci_7_chip"
+    }
+  },
+  "item.lucineer.custom_chip": {
+    "parent": "minecraft:item/generated",
+    "textures": {
+      "layer0": "lucineer:item/custom_chip"
+    }
+  },
+  "item.lucineer.silicon_ingot": {
+    "parent": "minecraft:item/generated",
+    "textures": {
+      "layer0": "lucineer:item/silicon_ingot"
+    }
+  },
+  "item.lucineer.silicon_dust": {
+    "parent": "minecraft:item/generated",
+    "textures": {
+      "layer0": "lucineer:item/silicon_dust"
+    }
+  },
+  "item.lucineer.copper_trace": {
+    "parent": "minecraft:item/generated",
+    "textures": {
+      "layer0": "lucineer:item/copper_trace"
+    }
+  },
+  "item.lucineer.gold_wire": {
+    "parent": "minecraft:item/generated",
+    "textures": {
+      "layer0": "lucineer:item/gold_wire"
+    }
+  },
+  "item.lucineer.lesson_book": {
+    "parent": "minecraft:item/generated",
+    "textures": {
+      "layer0": "lucineer:item/lesson_book"
+    }
+  },
+  "item.lucineer.design_blueprint": {
+    "parent": "minecraft:item/generated",
+    "textures": {
+      "layer0": "lucineer:item/design_blueprint"
+    }
+  }
+}

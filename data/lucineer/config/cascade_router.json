@@ -1,0 +1,94 @@
+{
+  "comment": "Cascade Router Config - Multi-provider routing configuration",
+  "schema_version": "1.21.1",
+  
+  "providers": {
+    "llm": {
+      "deepseek": {
+        "enabled": true,
+        "api_key_env": "DEEPSEEK_API_KEY",
+        "base_url": "https://api.deepseek.com/v1",
+        "models": ["deepseek-chat", "deepseek-reasoner"],
+        "default_model": "deepseek-chat",
+        "tier": "balanced",
+        "priority": 8,
+        "supports_vision": false,
+        "cost_per_1k_tokens": 0.001,
+        "strengths": ["reasoning", "code_generation", "math"]
+      },
+      "groq": {
+        "enabled": true,
+        "api_key_env": "GROQ_API_KEY",
+        "base_url": "https://api.groq.com/openai/v1",
+        "models": ["llama-3.3-70b-versatile", "llama-3.1-8b-instant"],
+        "default_model": "llama-3.3-70b-versatile",
+        "tier": "fast",
+        "priority": 9,
+        "supports_vision": false,
+        "cost_per_1k_tokens": 0.0,
+        "strengths": ["speed", "real_time", "high_throughput"]
+      },
+      "openai": {
+        "enabled": true,
+        "api_key_env": "OPENAI_API_KEY",
+        "base_url": "https://api.openai.com/v1",
+        "models": ["gpt-4o", "gpt-4o-mini", "o1-preview"],
+        "default_model": "gpt-4o-mini",
+        "tier": "premium",
+        "priority": 7,
+        "supports_vision": true,
+        "cost_per_1k_tokens": 0.01,
+        "strengths": ["quality", "vision", "reasoning"]
+      },
+      "local": {
+        "enabled": true,
+        "base_url": "http://localhost:11434",
+        "models": ["llama3.2", "mistral", "phi3"],
+        "default_model": "llama3.2",
+        "tier": "local",
+        "priority": 10,
+        "supports_vision": false,
+        "cost_per_1k_tokens": 0.0,
+        "strengths": ["free", "private", "unlimited"]
+      }
+    },
+    "image": {
+      "deepinfra": {
+        "enabled": true,
+        "api_key_env": "DEEPINFRA_API_KEY",
+        "base_url": "https://api.deepinfra.com/v1/inference",
+        "models": ["stabilityai/stable-diffusion-xl-base-1.0", "ByteDance/SDXL-Lightning"],
+        "default_model": "stabilityai/stable-diffusion-xl-base-1.0",
+        "tier": "balanced",
+        "priority": 8,
+        "cost_per_image": 0.002
+      },
+      "local_sd": {
+        "enabled": true,
+        "base_url": "http://localhost:7860",
+        "models": ["sd_xl_base_1.0", "sdxl_lightning"],
+        "default_model": "sd_xl_base_1.0",
+        "tier": "local",
+        "priority": 10,
+        "cost_per_image": 0.0
+      }
+    }
+  },
+  
+  "routing": {
+    "prefer_local": true,
+    "fallback_enabled": true,
+    "complexity_analysis": true,
+    "max_retries": 3,
+    "timeout_seconds": 120,
+    "failure_threshold": 3,
+    "cooldown_seconds": 60
+  },
+  
+  "cache": {
+    "enabled": true,
+    "max_size": 1000,
+    "ttl_seconds": 3600,
+    "semantic_similarity_threshold": 0.95
+  }
+}

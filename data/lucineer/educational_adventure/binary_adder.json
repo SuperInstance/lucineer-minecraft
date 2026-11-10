@@ -1,0 +1,81 @@
+{
+  "adventure_id": "binary_adder",
+  "title": "🧮 Binary Calculator",
+  "category": "ALGORITHMS",
+  "difficulty": 3,
+  "description": "Build a binary calculator! Add, subtract, and understand how computers do math!",
+  "objectives": [
+    {
+      "id": "half_adder",
+      "description": "Build a half adder (adds 2 bits)",
+      "target_value": 1,
+      "reward_xp": 75
+    },
+    {
+      "id": "full_adder",
+      "description": "Build a full adder (includes carry!)",
+      "target_value": 1,
+      "reward_xp": 100
+    },
+    {
+      "id": "ripple_adder",
+      "description": "Build a 4-bit ripple carry adder",
+      "target_value": 1,
+      "reward_xp": 200
+    },
+    {
+      "id": "add_correct",
+      "description": "Successfully add 1011 + 0110",
+      "target_value": 1,
+      "reward_xp": 50
+    },
+    {
+      "id": "subtract",
+      "description": "Implement subtraction using two's complement",
+      "target_value": 1,
+      "reward_xp": 150
+    }
+  ],
+  "game_mechanics": {
+    "interaction_type": "REDSTONE_CIRCUIT",
+    "win_condition": "subtract",
+    "hints_enabled": true,
+    "input_bits": 4,
+    "supports_carry": true
+  },
+  "visual_theme": {
+    "primary_color": "#10b981",
+    "secondary_color": "#f59e0b",
+    "particle_effects": true,
+    "ambient_sounds": ["block.note_block.hat", "block.piston.extend"]
+  },
+  "npc_guide": {
+    "name": "Calc Cathy",
+    "skin": "lucineer:textures/entity/calc_cathy.png",
+    "dialogue_style": "patient_educational",
+    "personality": "Math teacher who loves showing how numbers work"
+  },
+  "rewards": {
+    "xp_base": 25,
+    "items": [
+      {
+        "item": "lucineer:calculator_frame",
+        "condition": "ripple_adder"
+      }
+    ],
+    "unlock_next": ["multiplier_circuit", "alu_builder"]
+  },
+  "fun_facts": [
+    "Computers add using XOR and AND gates!",
+    "Two's complement is why -1 in 8-bit is 11111111!",
+    "Ripple carry is slow but simple - better adders use lookahead!",
+    "Your CPU can do BILLIONS of additions per second!",
+    "The ALU is the 'math brain' of the CPU!"
+  ],
+  "in_game_integration": {
+    "block_type": "lucineer:adder_workbench",
+    "ui_scale": 1.3,
+    "redstone_output": true,
+    "auto_test": true
+  }
+}

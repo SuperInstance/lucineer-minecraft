@@ -1,0 +1,50 @@
+{
+  "comment": "Neural Synapse Dimension - Neuromorphic computing world",
+  "schema_version": "1.21.1",
+  "type": "lucineer:neural_synapse",
+  
+  "generator": {
+    "type": "minecraft:noise",
+    "biome_source": {
+      "type": "minecraft:multi_noise",
+      "preset": "minecraft:nether"
+    },
+    "settings": "lucineer:neural_synapse_noise"
+  },
+  
+  "lucineer:neuromorphic_config": {
+    "chip_variant": "SYNAPSE-1",
+    "architecture_type": "neuromorphic",
+    
+    "synapse_properties": {
+      "plasticity_types": ["STDP", "hebbian", "anti-hebbian"],
+      "weight_range": [-1.0, 1.0],
+      "learning_rate": 0.01,
+      "decay_rate": 0.001
+    },
+    
+    "neuron_properties": {
+      "activation_function": "spike_threshold",
+      "refractory_period_ms": 2.0,
+      "membrane_time_constant_ms": 20.0,
+      "resting_potential_mv": -70.0
+    },
+    
+    "network_topology": {
+      "layers": [
+        {"name": "input", "neurons": 784, "type": "sensory"},
+        {"name": "hidden_1", "neurons": 256, "type": "processing"},
+        {"name": "hidden_2", "neurons": 128, "type": "processing"},
+        {"name": "output", "neurons": 10, "type": "motor"}
+      ],
+      "connectivity": "sparse_random",
+      "sparsity": 0.15
+    },
+    
+    "biological_thermal": {
+      "reference_temperature_k": 310.0,
+      "metabolic_heat_w": 0.001,
+      "cooling_mechanism": "blood_flow_analog"
+    }
+  }
+}

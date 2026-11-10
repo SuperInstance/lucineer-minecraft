@@ -1,0 +1,106 @@
+{
+  "comment": "Voxel Explorer State - For 3D cross-section visualization",
+  "schema_version": "1.21.1",
+  "loader": "neoforge:data_component_type",
+  
+  "name": "lucineer:voxel_explorer_state",
+  "persistent": true,
+  "network_synced": true,
+  
+  "schema": {
+    "type": "object",
+    "properties": {
+      "explorer_id": { "type": "string" },
+      "current_module": {
+        "type": "string",
+        "enum": ["TRANSISTOR", "CPU_CORE", "MEMORY_CELL", "LED_JUNCTION", "CIRCUIT_BOARD", "NETWORK_PACKET", "NEURAL_NETWORK"]
+      },
+      "view_mode": {
+        "type": "string",
+        "enum": ["CROSS_SECTION", "X_RAY", "EXPLODED", "WIREFRAME", "HEAT_MAP"],
+        "default": "CROSS_SECTION"
+      },
+      "age_level": {
+        "type": "string",
+        "enum": ["ELEMENTARY", "MIDDLE", "HIGH", "PROFESSIONAL"],
+        "default": "ELEMENTARY"
+      },
+      "zoom_level": { "type": "number", "minimum": 1, "maximum": 100, "default": 10 },
+      "rotation": {
+        "type": "object",
+        "properties": {
+          "x": { "type": "number" },
+          "y": { "type": "number" }
+        }
+      },
+      "cross_section_plane": {
+        "type": "object",
+        "properties": {
+          "axis": { "type": "string", "enum": ["X", "Y", "Z"] },
+          "position": { "type": "number" }
+        }
+      },
+      "selected_component": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "description": { "type": "string" }
+        }
+      },
+      "discovered_components": {
+        "type": "array",
+        "items": { "type": "string" }
+      },
+      "active_animations": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string", "enum": ["ELECTRON_FLOW", "DATA_FLOW", "HEAT_FLOW", "CLOCK_SIGNAL"] },
+            "path": { "type": "array", "items": { "type": "object" } },
+            "speed": { "type": "number" }
+          }
+        }
+      },
+      "character_dialogue": {
+        "type": "object",
+        "properties": {
+          "character_id": { "type": "string" },
+          "current_message": { "type": "string" },
+          "message_index": { "type": "integer" },
+          "last_rotation_time": { "type": "number" }
+        }
+      },
+      "xp_multiplier": { "type": "number", "default": 1.0 }
+    },
+    "required": ["explorer_id", "current_module"]
+  },
+  
+  "modules": {
+    "TRANSISTOR": {
+      "grid_size": [20, 20, 10],
+      "components": ["source", "drain", "gate", "channel", "oxide", "substrate"],
+      "animations": ["ELECTRON_FLOW", "GATE_SWITCHING"],
+      "unlock_requirement": "redstone_basics"
+    },
+    "CPU_CORE": {
+      "grid_size": [50, 50, 30],
+      "components": ["alu", "register_file", "cache_l1", "interconnect", "clock_grid", "fetch_unit"],
+      "animations": ["DATA_FLOW", "CLOCK_SIGNAL", "INSTRUCTION_PIPELINE"],
+      "unlock_requirement": "logic_master"
+    },
+    "MEMORY_CELL": {
+      "grid_size": [15, 15, 5],
+      "components": ["capacitor", "access_transistor", "bitline", "wordline", "sense_amplifier"],
+      "animations": ["ELECTRON_FLOW", "CHARGE_DISCHARGE"],
+      "unlock_requirement": "electronics_basics"
+    },
+    "LED_JUNCTION": {
+      "grid_size": [10, 10, 8],
+      "components": ["p_region", "n_region", "junction", "contact", "photon_emitter"],
+      "animations": ["ELECTRON_FLOW", "PHOTON_EMISSION"],
+      "unlock_requirement": "none"
+    }
+  }
+}

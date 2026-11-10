@@ -1,0 +1,147 @@
+{
+  "comment": "Character Guide - Companion characters from Voxel Explorer",
+  "schema_version": "1.21.1",
+  "loader": "neoforge:data_component_type",
+  
+  "name": "lucineer:character_guide",
+  "persistent": true,
+  "network_synced": true,
+  
+  "schema": {
+    "type": "object",
+    "properties": {
+      "character_id": {
+        "type": "string",
+        "enum": ["volt", "bit", "fetch", "carry", "switch", "merge", "cache", "router", "pixel", "photon"],
+        "description": "Character identifier from Voxel Explorer"
+      },
+      "role": {
+        "type": "string",
+        "description": "Character's technical role"
+      },
+      "emoji": {
+        "type": "string",
+        "description": "Character's emoji representation"
+      },
+      "age_level": {
+        "type": "string",
+        "enum": ["elementary", "middle", "high"],
+        "default": "middle",
+        "description": "Player's age level for appropriate dialogue"
+      },
+      "current_topic": {
+        "type": "string",
+        "description": "Current teaching topic"
+      },
+      "dialogue_index": {
+        "type": "integer",
+        "default": 0,
+        "description": "Current position in dialogue sequence"
+      },
+      "insights_discovered": {
+        "type": "array",
+        "items": { "type": "string" },
+        "description": "Concepts the player has learned from this character"
+      },
+      "relationship_level": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 100,
+        "default": 0,
+        "description": "Player's relationship with this character"
+      }
+    },
+    "required": ["character_id"]
+  },
+  
+  "characters": {
+    "volt": {
+      "role": "Voltage Guide",
+      "emoji": "⚡",
+      "color": "#FBBF24",
+      "dialogue": {
+        "elementary": [
+          "Ready to ZOOM through the circuit! ⚡",
+          "I give electrons the energy to move!",
+          "More voltage = FASTER electrons! Vroom!"
+        ],
+        "middle": [
+          "I create the potential difference that drives electron flow.",
+          "Higher voltage means more energy per electron.",
+          "I work with Current and Resistance - we're the Ohm's Law team!"
+        ],
+        "high": [
+          "I establish the electric field that accelerates charge carriers.",
+          "My potential difference determines current flow: I = V/R.",
+          "Power dissipation: P = VI. I'm essential to energy transfer!"
+        ]
+      }
+    },
+    "bit": {
+      "role": "Data Carrier",
+      "emoji": "📦",
+      "color": "#3B82F6",
+      "dialogue": {
+        "elementary": [
+          "I can be a ZERO or a ONE! 🎭",
+          "Put 8 of us together = 1 Byte!",
+          "I travel through wires super fast!"
+        ],
+        "middle": [
+          "I represent a binary state - on or off, true or false.",
+          "With my friends, we can represent any number or letter!",
+          "I travel through circuits as high or low voltage signals."
+        ],
+        "high": [
+          "I encode information entropy - one bit = one binary decision.",
+          "Shannon's information theory defines my capacity.",
+          "I propagate as voltage transitions through logic gates."
+        ]
+      }
+    },
+    "fetch": {
+      "role": "Memory Retriever",
+      "emoji": "🐕",
+      "color": "#F59E0B",
+      "dialogue": {
+        "elementary": [
+          "Going to get your data! *woof* 🐕",
+          "I run REALLY fast to memory!",
+          "Got it! Here's your information!"
+        ],
+        "middle": [
+          "Initiating memory fetch operation...",
+          "Transferring address to Memory Address Register.",
+          "Data retrieved! Loading into instruction register."
+        ],
+        "high": [
+          "Executing fetch-decode-execute cycle...",
+          "PC to MAR, initiating memory read.",
+          "MDR loaded, incrementing PC. Ready for decode stage."
+        ]
+      }
+    },
+    "switch": {
+      "role": "Transistor Gatekeeper",
+      "emoji": "🚪",
+      "color": "#06B6D4",
+      "dialogue": {
+        "elementary": [
+          "Gate OPEN! Come on through! 🚪",
+          "Gate CLOSED! No electrons today!",
+          "I switch MILLIONS of times per second!"
+        ],
+        "middle": [
+          "Gate voltage applied - channel conducting.",
+          "Threshold voltage exceeded - switching ON.",
+          "I amplify signals and perform logic operations."
+        ],
+        "high": [
+          "Vgs > Vth - inversion layer formed.",
+          "Channel modulation controlling Id.",
+          "Operating in saturation region for amplification."
+        ]
+      }
+    }
+  }
+}

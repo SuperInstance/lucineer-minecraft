@@ -1,0 +1,45 @@
+{
+  "type": "neoforge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "lucineer:learning_tier",
+          "tier": 3
+        },
+        {
+          "type": "lucineer:skill_level",
+          "skill": "chip_design",
+          "min_level": 20
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "pattern": [
+          "GTG",
+          "TCT",
+          "GTG"
+        ],
+        "key": {
+          "G": { "item": "lucineer:logic_gate_item" },
+          "T": { "item": "lucineer:transistor_item" },
+          "C": { "item": "lucineer:chip_core" }
+        },
+        "result": {
+          "id": "lucineer:luci_1_chip",
+          "count": 1,
+          "components": {
+            "lucineer:chip_state": {
+              "chip_type": "LUCI_1",
+              "parameters": "1B",
+              "power_watts": 2.0,
+              "tokens_per_second": 15
+            }
+          }
+        },
+        "category": "lucineer:chips"
+      }
+    }
+  ],
+  "comment": "Unlock: Complete 'Chip Design Fundamentals' project"
+}

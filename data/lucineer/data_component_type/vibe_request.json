@@ -1,0 +1,87 @@
+{
+  "comment": "Vibe Coding Engine - Data Component for natural language generation",
+  "schema_version": "1.21.1",
+  "loader": "neoforge:data_component_type",
+  
+  "name": "lucineer:vibe_request",
+  "persistent": true,
+  "network_synced": true,
+  
+  "schema": {
+    "type": "object",
+    "properties": {
+      "request_id": {
+        "type": "string",
+        "description": "Unique request identifier"
+      },
+      "natural_language": {
+        "type": "string",
+        "maxLength": 1000,
+        "description": "Player's natural language request"
+      },
+      "intent": {
+        "type": "string",
+        "enum": ["build", "generate", "automate", "modify", "query", "learn", "explore", "collaborate"],
+        "description": "Detected intent from the request"
+      },
+      "context": {
+        "type": "object",
+        "properties": {
+          "player_id": { "type": "string" },
+          "player_name": { "type": "string" },
+          "world_id": { "type": "string" },
+          "position": {
+            "type": "object",
+            "properties": {
+              "x": { "type": "number" },
+              "y": { "type": "number" },
+              "z": { "type": "number" }
+            }
+          },
+          "dimension": { "type": "string" },
+          "biome": { "type": "string" },
+          "game_mode": { "type": "string" },
+          "time_of_day": { "type": "integer" },
+          "weather": { "type": "string" }
+        }
+      },
+      "constraints": {
+        "type": "object",
+        "properties": {
+          "max_blocks": { "type": "integer" },
+          "allowed_items": { "type": "array", "items": { "type": "string" } },
+          "budget_xp": { "type": "integer" },
+          "time_limit_seconds": { "type": "integer" }
+        }
+      },
+      "preferences": {
+        "type": "object",
+        "properties": {
+          "style": { "type": "string" },
+          "difficulty": { "type": "string", "enum": ["easy", "medium", "hard"] },
+          "learning_mode": { "type": "boolean" }
+        }
+      },
+      "status": {
+        "type": "string",
+        "enum": ["pending", "processing", "completed", "failed"],
+        "default": "pending"
+      },
+      "created_at": { "type": "string", "format": "date-time" }
+    },
+    "required": ["request_id", "natural_language"]
+  },
+  
+  "server_config": {
+    "api_endpoint": "http://localhost:8080/vibe",
+    "timeout_ms": 30000,
+    "retry_count": 3,
+    "cache_ttl_seconds": 300
+  },
+  
+  "client_config": {
+    "show_progress": true,
+    "allow_cancel": true,
+    "display_suggestions": true
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "adventure_id": "logic_gate_builder",
+  "title": "⚡ Logic Gate Workshop",
+  "category": "LOGIC_GATES",
+  "difficulty": 2,
+  "description": "Build logic gates from transistors! AND, OR, NOT, XOR, and more!",
+  "objectives": [
+    {
+      "id": "build_and",
+      "description": "Build an AND gate from transistors",
+      "target_value": 1,
+      "reward_xp": 60
+    },
+    {
+      "id": "build_or",
+      "description": "Build an OR gate from transistors",
+      "target_value": 1,
+      "reward_xp": 60
+    },
+    {
+      "id": "build_not",
+      "description": "Build a NOT gate (inverter)",
+      "target_value": 1,
+      "reward_xp": 40
+    },
+    {
+      "id": "build_xor",
+      "description": "Build an XOR gate",
+      "target_value": 1,
+      "reward_xp": 100
+    },
+    {
+      "id": "build_nand",
+      "description": "Build a NAND gate (universal gate!)",
+      "target_value": 1,
+      "reward_xp": 80
+    },
+    {
+      "id": "build_half_adder",
+      "description": "Combine gates into a half adder",
+      "target_value": 1,
+      "reward_xp": 150
+    }
+  ],
+  "game_mechanics": {
+    "interaction_type": "ITEM_COMBINATION",
+    "win_condition": "build_half_adder",
+    "hints_enabled": true,
+    "components": ["transistor_nmos", "transistor_pmos", "wire", "power_source", "ground"]
+  },
+  "visual_theme": {
+    "primary_color": "#f59e0b",
+    "secondary_color": "#ef4444",
+    "particle_effects": true,
+    "ambient_sounds": ["block.redstone_torch.burnout", "block.note_block.pling"]
+  },
+  "npc_guide": {
+    "name": "Gatekeeper Gary",
+    "skin": "lucineer:textures/entity/gatekeeper.png",
+    "dialogue_style": "punny_technical",
+    "personality": "Makes logic puns, gets excited about efficiency"
+  },
+  "rewards": {
+    "xp_base": 20,
+    "items": [
+      {
+        "item": "lucineer:logic_master_badge",
+        "condition": "build_xor"
+      },
+      {
+        "item": "lucineer:transistor_blueprints",
+        "condition": "build_half_adder"
+      }
+    ],
+    "unlock_next": ["chip_designer", "binary_adder"]
+  },
+  "fun_facts": [
+    "NAND gates are universal - you can build ANY circuit from just NANDs!",
+    "Your CPU has BILLIONS of transistors!",
+    "XOR is like a light switch - if both are on, it's off!",
+    "The first transistor was invented in 1947!",
+    "Modern transistors are smaller than a virus!",
+    "Logic gates are the alphabet of computing!"
+  ],
+  "in_game_integration": {
+    "block_type": "lucineer:logic_workbench",
+    "ui_scale": 1.2,
+    "redstone_output": true
+  }
+}

@@ -1,0 +1,254 @@
+{
+  "comment": "Manufacturing Steps - 10-step chip fabrication process",
+  "schema_version": "1.21.1",
+  
+  "steps": [
+    {
+      "id": "silicon_extraction",
+      "name": "Silicon Extraction",
+      "subtitle": "From Sand to Crystal",
+      "block": "lucineer:raw_silicon",
+      "physics": [
+        {
+          "name": "Reaction Temperature",
+          "value": "T = 1900°C",
+          "meaning": "Carbothermic reduction"
+        },
+        {
+          "name": "Chemical Equation",
+          "value": "SiO₂ + 2C → Si + 2CO",
+          "meaning": "Silicon dioxide to silicon"
+        }
+      ],
+      "game_mechanic": {
+        "input": "minecraft:sand",
+        "fuel": "minecraft:charcoal",
+        "temperature": 1900,
+        "output": "lucineer:raw_silicon",
+        "time_ticks": 1200
+      },
+      "voxel_concept": "Watch sand grains transform into glowing crystals"
+    },
+    {
+      "id": "czochralski_growth",
+      "name": "Czochralski Growth",
+      "subtitle": "Crystal Pulling",
+      "block": "lucineer:silicon_ingot",
+      "physics": [
+        {
+          "name": "Pull Rate",
+          "value": "v = 1-2 mm/min",
+          "meaning": "Crystal growth speed"
+        },
+        {
+          "name": "Rotation Speed",
+          "value": "ω = 10-40 rpm",
+          "meaning": "Ingot rotation for uniformity"
+        }
+      ],
+      "game_mechanic": {
+        "input": "lucineer:raw_silicon",
+        "minigame": "pull_crystal",
+        "skill": ["timing", "patience"],
+        "output": "lucineer:silicon_ingot"
+      },
+      "voxel_concept": "Control the pull! A voxel cylinder grows from the molten pool"
+    },
+    {
+      "id": "wafer_slicing",
+      "name": "Wafer Slicing",
+      "subtitle": "Diamond Wire Saw",
+      "block": "lucineer:silicon_wafer",
+      "physics": [
+        {
+          "name": "Wafer Thickness",
+          "value": "t = 775 μm (300mm)",
+          "meaning": "Standard thickness"
+        },
+        {
+          "name": "Kerf Loss",
+          "value": "k ≈ 100-150 μm",
+          "meaning": "Material lost per cut"
+        }
+      ],
+      "game_mechanic": {
+        "input": "lucineer:silicon_ingot",
+        "tool": "lucineer:diamond_wire",
+        "yields": 300,
+        "output": "lucineer:silicon_wafer"
+      },
+      "voxel_concept": "Guide the wire through the crystal, minimizing waste"
+    },
+    {
+      "id": "photolithography",
+      "name": "Photolithography",
+      "subtitle": "Pattern Transfer",
+      "block": "lucineer:photoresist_wafer",
+      "physics": [
+        {
+          "name": "Resolution",
+          "value": "R = k₁λ/NA",
+          "meaning": "Rayleigh criterion"
+        },
+        {
+          "name": "Wavelength",
+          "value": "λ = 193 nm (ArF)",
+          "meaning": "Deep UV lithography"
+        }
+      ],
+      "game_mechanic": {
+        "input": "lucineer:silicon_wafer",
+        "machine": "lucineer:stepper",
+        "mask": "lucineer:photomask",
+        "output": "lucineer:exposed_wafer"
+      },
+      "voxel_concept": "Be the photon! Navigate through the mask to expose the pattern"
+    },
+    {
+      "id": "etching",
+      "name": "Etching",
+      "subtitle": "Selective Removal",
+      "block": "lucineer:etched_wafer",
+      "physics": [
+        {
+          "name": "Etch Rate",
+          "value": "ER = k·[reactant]",
+          "meaning": "Reaction kinetics"
+        },
+        {
+          "name": "Selectivity",
+          "value": "S = ER₁/ER₂",
+          "meaning": "Material preference"
+        }
+      ],
+      "game_mechanic": {
+        "input": "lucineer:exposed_wafer",
+        "chemical": "lucineer:plasma",
+        "output": "lucineer:etched_wafer"
+      },
+      "voxel_concept": "Control the etch - carve channels into the voxel landscape"
+    },
+    {
+      "id": "ion_implantation",
+      "name": "Ion Implantation",
+      "subtitle": "Doping the Silicon",
+      "block": "lucineer:doped_wafer",
+      "physics": [
+        {
+          "name": "Ion Energy",
+          "value": "E = 1 keV - 1 MeV",
+          "meaning": "Acceleration voltage"
+        },
+        {
+          "name": "Dose",
+          "value": "Φ = 10¹¹ - 10¹⁶ cm⁻²",
+          "meaning": "Ion concentration"
+        }
+      ],
+      "game_mechanic": {
+        "input": "lucineer:etched_wafer",
+        "ions": ["boron", "phosphorus", "arsenic"],
+        "output": "lucineer:doped_wafer"
+      },
+      "voxel_concept": "Launch ions into the crystal! Aim for the right depth"
+    },
+    {
+      "id": "metallization",
+      "name": "Metallization",
+      "subtitle": "Metal Interconnects",
+      "block": "lucineer:interconnect_layer",
+      "physics": [
+        {
+          "name": "Wire Width",
+          "value": "w = 10-100 nm",
+          "meaning": "Minimum feature"
+        },
+        {
+          "name": "Resistance",
+          "value": "R = ρL/A",
+          "meaning": "Resistivity equation"
+        }
+      ],
+      "game_mechanic": {
+        "input": "lucineer:doped_wafer",
+        "metal": "copper",
+        "layers": 7,
+        "output": "lucineer:interconnect_layer"
+      },
+      "voxel_concept": "Draw the metal highways where electrons will flow!"
+    },
+    {
+      "id": "mask_locked_weights",
+      "name": "Mask-Locked Weights",
+      "subtitle": "Neural Encoding",
+      "block": "lucineer:ternary_weight_block",
+      "physics": [
+        {
+          "name": "Ternary Encoding",
+          "value": "w ∈ {-1, 0, +1}",
+          "meaning": "BitNet weights"
+        },
+        {
+          "name": "Zero Access Energy",
+          "value": "E_access = 0",
+          "meaning": "No memory fetch"
+        }
+      ],
+      "game_mechanic": {
+        "input": "lucineer:neural_network_design",
+        "encoding": "ternary",
+        "output": "lucineer:mask_locked_chip"
+      },
+      "voxel_concept": "Freeze the weights! See neural patterns become silicon reality"
+    },
+    {
+      "id": "packaging",
+      "name": "Packaging",
+      "subtitle": "Chip Protection",
+      "block": "lucineer:packaged_chip",
+      "physics": [
+        {
+          "name": "Thermal Resistance",
+          "value": "θ_ja = 20-100 °C/W",
+          "meaning": "Heat dissipation"
+        },
+        {
+          "name": "Bond Wire",
+          "value": "d = 25-50 μm",
+          "meaning": "Wire diameter"
+        }
+      ],
+      "game_mechanic": {
+        "input": "lucineer:mask_locked_chip",
+        "package": "lucineer:ceramic_package",
+        "output": "lucineer:packaged_chip"
+      },
+      "voxel_concept": "Build a protective shell around the precious silicon"
+    },
+    {
+      "id": "testing_binning",
+      "name": "Testing & Binning",
+      "subtitle": "Quality Sorting",
+      "block": "lucineer:tested_chip",
+      "physics": [
+        {
+          "name": "Test Coverage",
+          "value": "C > 99%",
+          "meaning": "Fault detection"
+        },
+        {
+          "name": "Yield",
+          "value": "Y = e^(-D₀A)",
+          "meaning": "Poisson model"
+        }
+      ],
+      "game_mechanic": {
+        "input": "lucineer:packaged_chip",
+        "test": "lucineer:tester",
+        "bins": ["speed_grade_1", "speed_grade_2", "speed_grade_3"],
+        "output": "lucineer:luci_chip"
+      },
+      "voxel_concept": "Run the tests! Sort chips into speed bins"
+    }
+  ]
+}

@@ -1,0 +1,137 @@
+{
+  "comment": "Neural Network State - For cell-based neural network building",
+  "schema_version": "1.21.1",
+  "loader": "neoforge:data_component_type",
+  
+  "name": "lucineer:neural_network_state",
+  "persistent": true,
+  "network_synced": true,
+  
+  "schema": {
+    "type": "object",
+    "properties": {
+      "network_id": { "type": "string" },
+      "architecture": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "input_size": { "type": "integer" },
+          "output_size": { "type": "integer" },
+          "hidden_layers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "size": { "type": "integer" },
+                "activation": { "type": "string", "enum": ["RELU", "SIGMOID", "TANH", "LINEAR", "SOFTMAX"] }
+              }
+            }
+          }
+        }
+      },
+      "grid_cells": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "cell_id": { "type": "string" },
+            "row": { "type": "integer" },
+            "col": { "type": "integer" },
+            "cell_type": {
+              "type": "string",
+              "enum": ["INPUT", "NEURON", "OUTPUT", "WEIGHT", "BIAS", "ACTIVATION", "EMPTY"]
+            },
+            "value": { "type": "number" },
+            "formula": { "type": "string" },
+            "gradient": { "type": "number" },
+            "activation_output": { "type": "number" }
+          }
+        }
+      },
+      "connections": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "from_cell": { "type": "string" },
+            "to_cell": { "type": "string" },
+            "weight": { "type": "number" }
+          }
+        }
+      },
+      "training": {
+        "type": "object",
+        "properties": {
+          "learning_rate": { "type": "number", "default": 0.01 },
+          "epochs": { "type": "integer", "default": 0 },
+          "batch_size": { "type": "integer", "default": 32 },
+          "loss_function": { "type": "string", "enum": ["MSE", "CROSS_ENTROPY", "BINARY_CROSSENTROPY"] },
+          "current_loss": { "type": "number" },
+          "training_data_size": { "type": "integer" },
+          "validation_accuracy": { "type": "number" }
+        }
+      },
+      "forward_pass_state": {
+        "type": "object",
+        "properties": {
+          "input_values": { "type": "array", "items": { "type": "number" } },
+          "output_values": { "type": "array", "items": { "type": "number" } },
+          "prediction": { "type": "integer" },
+          "confidence": { "type": "number" }
+        }
+      },
+      "task_type": {
+        "type": "string",
+        "enum": ["CLASSIFICATION", "REGRESSION", "PATTERN_RECOGNITION", "GAME_AI"],
+        "default": "CLASSIFICATION"
+      },
+      "status": {
+        "type": "string",
+        "enum": ["IDLE", "BUILDING", "TRAINING", "INFERENCE", "EVALUATING"],
+        "default": "IDLE"
+      },
+      "xp_earned": { "type": "integer", "default": 0 }
+    },
+    "required": ["network_id"]
+  },
+  
+  "ai_functions": {
+    "NEURON": {
+      "syntax": "=NEURON(inputs, weights, bias)",
+      "description": "Computes Σ(wx) + b",
+      "category": "Neural"
+    },
+    "RELU": {
+      "syntax": "=RELU(value)",
+      "description": "max(0, value)",
+      "category": "Activation"
+    },
+    "SIGMOID": {
+      "syntax": "=SIGMOID(value)",
+      "description": "1 / (1 + e^-value)",
+      "category": "Activation"
+    },
+    "SOFTMAX": {
+      "syntax": "=SOFTMAX(range)",
+      "description": "Normalize to probabilities",
+      "category": "Activation"
+    },
+    "DENSE": {
+      "syntax": "=DENSE(inputs, weights, bias)",
+      "description": "Fully connected layer",
+      "category": "Layers"
+    },
+    "GRADIENT": {
+      "syntax": "=GRADIENT(loss, weight)",
+      "description": "Compute gradient",
+      "category": "Training"
+    }
+  },
+  
+  "gameplay_integration": {
+    "container": "9x9 grid GUI",
+    "items_as_cells": true,
+    "redstone_visualization": "Signal strength = activation value",
+    "training_minigame": "Feed labeled items to train"
+  }
+}

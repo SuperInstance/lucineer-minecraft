@@ -1,0 +1,43 @@
+{
+  "comment": "Thermal Test Chamber - For validating chip thermal dynamics",
+  "schema_version": "1.21.1",
+  "loader": "neoforge:dimension_type",
+  
+  "name": "Thermal Test Chamber",
+  "description": "Controlled environment for thermal simulation validation",
+  
+  "ambient_light": 0.0,
+  "bed_works": false,
+  "coordinate_scale": 0.01,
+  "effects": "minecraft:deep_dark",
+  "fixed_time": 18000,
+  "has_ceiling": true,
+  "has_raids": false,
+  "has_skylight": false,
+  "height": 128,
+  "infiniburn": "#minecraft:infiniburn_overworld",
+  "logical_height": 128,
+  "min_y": 0,
+  "monster_spawn_block_light_limit": 0,
+  "monster_spawn_light_level": 0,
+  "natural": false,
+  "piglin_safe": true,
+  "respawn_anchor_works": false,
+  "ultrawarm": false,
+  
+  "lucineer:test_chamber_config": {
+    "isolation_mode": true,
+    "measurement_precision": 0.001,
+    "heat_source_types": ["point", "gaussian", "uniform"],
+    "boundary_types": ["dirichlet", "neumann", "convective", "periodic"],
+    "default_grid_size": [100, 100, 1]
+  },
+  
+  "lucineer:thermal_properties": {
+    "ambient_temperature": 300.0,
+    "thermal_conductivity_base": 148.0,
+    "convergence_tolerance": 1.0e-4,
+    "max_iterations": 50000,
+    "relaxation_factor": 1.5
+  }
+}

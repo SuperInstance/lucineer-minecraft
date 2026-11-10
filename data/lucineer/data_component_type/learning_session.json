@@ -1,0 +1,94 @@
+{
+  "comment": "Progressive Learning Engine - Data Component for endless lessons",
+  "schema_version": "1.21.1",
+  "loader": "neoforge:data_component_type",
+  
+  "name": "lucineer:learning_session",
+  "persistent": true,
+  "network_synced": true,
+  
+  "schema": {
+    "type": "object",
+    "properties": {
+      "session_id": {
+        "type": "string",
+        "description": "Unique session identifier"
+      },
+      "player_id": {
+        "type": "string",
+        "description": "Player identifier"
+      },
+      "current_topic": {
+        "type": "string",
+        "description": "Current learning topic"
+      },
+      "difficulty_level": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 10,
+        "description": "Current difficulty (1-10)"
+      },
+      "lesson": {
+        "type": "object",
+        "properties": {
+          "title": { "type": "string" },
+          "concepts": { "type": "array", "items": { "type": "string" } },
+          "steps": { "type": "array", "items": { "type": "string" } },
+          "challenge": { "type": "string" },
+          "reward": { "type": "string" }
+        }
+      },
+      "progress": {
+        "type": "object",
+        "properties": {
+          "completed_steps": { "type": "integer", "default": 0 },
+          "total_steps": { "type": "integer" },
+          "xp_earned": { "type": "integer", "default": 0 },
+          "challenges_completed": { "type": "integer", "default": 0 }
+        }
+      },
+      "profile": {
+        "type": "object",
+        "properties": {
+          "interests": { "type": "array", "items": { "type": "string" } },
+          "skill_levels": { "type": "object", "additionalProperties": { "type": "integer" } },
+          "total_xp": { "type": "integer" },
+          "learning_style": { "type": "string", "enum": ["visual", "auditory", "kinesthetic", "reading"] }
+        }
+      },
+      "history": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "topic": { "type": "string" },
+            "difficulty": { "type": "integer" },
+            "completed_at": { "type": "string", "format": "date-time" },
+            "score": { "type": "number" }
+          }
+        }
+      },
+      "state": {
+        "type": "string",
+        "enum": ["idle", "learning", "practicing", "challenging", "completed"],
+        "default": "idle"
+      }
+    },
+    "required": ["session_id", "player_id"]
+  },
+  
+  "topics": {
+    "tier_1_beginner": ["mining", "building", "farming", "combat_basics", "exploration"],
+    "tier_2_intermediate": ["redstone_basics", "enchanting", "brewing", "mob_farms", "storage_systems"],
+    "tier_3_advanced": ["redstone_computers", "iron_farms", "raid_farms", "sculk_mechanics", "automation"],
+    "tier_4_expert": ["wither_skeleton_farms", "gold_farms", "trading_halls", "transportation_systems", "mega_builds"],
+    "tier_5_master": ["optimization_theory", "game_mechanics_deep_dive", "community_projects", "teaching_others"]
+  },
+  
+  "xp_rewards": {
+    "lesson_complete": 100,
+    "challenge_complete": 250,
+    "perfect_score": 500,
+    "teach_other": 1000
+  }
+}

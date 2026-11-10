@@ -1,0 +1,36 @@
+{
+  "type": "neoforge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "lucineer:learning_tier",
+          "tier": 2
+        },
+        {
+          "type": "lucineer:skill_level",
+          "skill": "thermal_engineering",
+          "min_level": 5
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "pattern": [
+          "III",
+          "IFI",
+          "III"
+        ],
+        "key": {
+          "I": { "item": "minecraft:iron_ingot" },
+          "F": { "item": "minecraft:fire_charge" }
+        },
+        "result": {
+          "id": "lucineer:heat_source_block",
+          "count": 1
+        },
+        "category": "lucineer:thermal"
+      }
+    }
+  ],
+  "comment": "Unlock: Complete 'Thermal Basics' lesson"
+}

@@ -1,0 +1,54 @@
+{
+  "comment": "Silicon Foundry Dimension - Main chip manufacturing world",
+  "schema_version": "1.21.1",
+  "type": "lucineer:silicon_foundry",
+  
+  "generator": {
+    "type": "minecraft:noise",
+    "biome_source": {
+      "type": "minecraft:fixed",
+      "biome": "lucineer:silicon_wafer"
+    },
+    "settings": "lucineer:silicon_foundry_noise"
+  },
+  
+  "lucineer:chip_config": {
+    "chip_variant": "LUCI-7",
+    "parameters": "7B",
+    "power_watts": 10,
+    "tokens_per_second": 35,
+    "process_node_nm": 28,
+    
+    "architecture": {
+      "weight_type": "ternary",
+      "bits_per_weight": 1.58,
+      "model_reference": "BitNet b1.58-2B-4T",
+      "mask_locked": true
+    },
+    
+    "materials": {
+      "substrate": "silicon",
+      "interconnect": "copper_damascene",
+      "dielectric": "sio2",
+      "high_k": "hfo2"
+    },
+    
+    "thermal_zones": [
+      {
+        "name": "mac_array",
+        "power_density_w_mm2": 0.5,
+        "material": "silicon_thin_film"
+      },
+      {
+        "name": "memory_controller",
+        "power_density_w_mm2": 0.3,
+        "material": "silicon"
+      },
+      {
+        "name": "io_interface",
+        "power_density_w_mm2": 0.1,
+        "material": "copper"
+      }
+    ]
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "__comment": "Agent Trigger Data Component - Defines conditions that escalate from script to LLM agent",
+  "type": "minecraft:data_component_type",
+  "fields": {
+    "trigger_id": {
+      "type": "string",
+      "description": "Unique identifier for this trigger"
+    },
+    "trigger_name": {
+      "type": "string",
+      "description": "Human-readable trigger name"
+    },
+    "category": {
+      "type": "string",
+      "enum": ["SAFETY", "PERFORMANCE", "LEARNING", "EDGE_CASE", "USER_REQUEST"],
+      "description": "Category determines priority and handling"
+    },
+    "condition": {
+      "type": "compound",
+      "description": "Condition that activates this trigger",
+      "fields": {
+        "type": {"enum": ["THRESHOLD", "PATTERN", "STATE_CHANGE", "TIMEOUT", "ERROR"]},
+        "metric": "string",
+        "operator": {"enum": ["<", ">", "==", "!=", "includes", "matches"]},
+        "value": "any"
+      }
+    },
+    "escalation_action": {
+      "type": "compound", 
+      "description": "What happens when triggered",
+      "fields": {
+        "type": {"enum": ["PAUSE_AND_ASK", "CONTINUE_WITH_AGENT", "SWITCH_TO_AGENT", "LOG_AND_CONTINUE"]},
+        "prompt_template": "string",
+        "context_keys": "list<string>",
+        "fallback_behavior": {"enum": ["retry", "abort", "skip", "manual"]}
+      }
+    },
+    "cooldown_ms": {
+      "type": "int",
+      "description": "Minimum time between triggers (prevents spam)"
+    },
+    "priority": {
+      "type": "int",
+      "description": "Higher priority triggers evaluated first"
+    }
+  },
+  "example": {
+    "trigger_id": "lava_safety_v1",
+    "trigger_name": "Lava Safety Trigger",
+    "category": "SAFETY",
+    "condition": {
+      "type": "PATTERN",
+      "metric": "nearby_blocks",
+      "operator": "includes",
+      "value": "minecraft:lava"
+    },
+    "escalation_action": {
+      "type": "PAUSE_AND_ASK",
+      "prompt_template": "Lava detected nearby! How should I proceed? Options: avoid, bridge_over, collect, ask_for_help",
+      "context_keys": ["position", "nearby_blocks", "current_task"],
+      "fallback_behavior": "abort"
+    },
+    "cooldown_ms": 5000,
+    "priority": 100
+  },
+  "predefined_triggers": [
+    {
+      "id": "health_critical",
+      "category": "SAFETY",
+      "description": "Triggers when player health drops below threshold"
+    },
+    {
+      "id": "unknown_block",
+      "category": "EDGE_CASE",
+      "description": "Triggers when script encounters unrecognized block"
+    },
+    {
+      "id": "script_failure",
+      "category": "PERFORMANCE", 
+      "description": "Triggers when script execution fails"
+    },
+    {
+      "id": "learning_request",
+      "category": "LEARNING",
+      "description": "Triggers on why/how/explain questions"
+    },
+    {
+      "id": "creative_request",
+      "category": "USER_REQUEST",
+      "description": "Triggers for novel/creative tasks"
+    }
+  ],
+  "minecraft_integration": {
+    "item_type": "lucineer:agent_trigger",
+    "block_entity": "lucineer:trigger_evaluator",
+    "redstone_integration": {
+      "output_signal": "trigger_activated",
+      "signal_strength": "priority / 10"
+    },
+    "tooltip_format": "§c{category}: {name}§r\n§7{condition}\n§eCooldown: {cooldown}s"
+  }
+}

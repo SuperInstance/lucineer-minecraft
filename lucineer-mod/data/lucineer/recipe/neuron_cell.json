@@ -1,0 +1,37 @@
+{
+  "type": "neoforge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "lucineer:learning_tier",
+          "tier": 2
+        },
+        {
+          "type": "lucineer:skill_level",
+          "skill": "neural_networks",
+          "min_level": 10
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "pattern": [
+          " R ",
+          "GCG",
+          " R "
+        ],
+        "key": {
+          "R": { "item": "minecraft:redstone" },
+          "G": { "item": "minecraft:gold_nugget" },
+          "C": { "item": "minecraft:comparator" }
+        },
+        "result": {
+          "id": "lucineer:neuron_cell",
+          "count": 4
+        },
+        "category": "lucineer:neural"
+      }
+    }
+  ],
+  "comment": "Unlock: Complete 'Neural Network Basics' lesson"
+}

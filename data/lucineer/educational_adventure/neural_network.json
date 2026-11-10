@@ -1,0 +1,85 @@
+{
+  "adventure_id": "neural_network",
+  "title": "🧠 Neural Network Explorer",
+  "category": "ALGORITHMS",
+  "difficulty": 4,
+  "description": "Build and train neural networks! See how AI learns from data!",
+  "objectives": [
+    {
+      "id": "single_neuron",
+      "description": "Build a single artificial neuron",
+      "target_value": 1,
+      "reward_xp": 100
+    },
+    {
+      "id": "perceptron",
+      "description": "Create a perceptron that learns AND",
+      "target_value": 1,
+      "reward_xp": 150
+    },
+    {
+      "id": "xor_network",
+      "description": "Build a network that can learn XOR",
+      "target_value": 1,
+      "reward_xp": 250
+    },
+    {
+      "id": "train_success",
+      "description": "Train a network to 95% accuracy",
+      "target_value": 95,
+      "reward_xp": 200
+    },
+    {
+      "id": "deep_network",
+      "description": "Build a 3-layer network",
+      "target_value": 1,
+      "reward_xp": 300
+    }
+  ],
+  "game_mechanics": {
+    "interaction_type": "BLOCK_PLACEMENT",
+    "win_condition": "deep_network",
+    "hints_enabled": true,
+    "training_data": true,
+    "visualization": true
+  },
+  "visual_theme": {
+    "primary_color": "#ec4899",
+    "secondary_color": "#8b5cf6",
+    "particle_effects": true,
+    "ambient_sounds": ["entity.experience_orb.pickup", "block.amethyst_block.chime"]
+  },
+  "npc_guide": {
+    "name": "Neuro Nina",
+    "skin": "lucineer:textures/entity/neuro_nina.png",
+    "dialogue_style": "scientific_wonder",
+    "personality": "AI researcher who sees the magic in math"
+  },
+  "rewards": {
+    "xp_base": 35,
+    "items": [
+      {
+        "item": "lucineer:neuron_block",
+        "condition": "single_neuron"
+      },
+      {
+        "item": "lucineer:training_dataset",
+        "condition": "xor_network"
+      }
+    ],
+    "unlock_next": ["convolutional_network", "reinforcement_learning"]
+  },
+  "fun_facts": [
+    "Neural networks are inspired by real brains!",
+    "Deep learning just means many layers!",
+    "A single neuron does: output = activation(weights × inputs + bias)",
+    "Backpropagation is how networks learn from mistakes!",
+    "GPT-4 has over 1 trillion parameters!"
+  ],
+  "in_game_integration": {
+    "block_type": "lucineer:neural_workbench",
+    "ui_scale": 1.4,
+    "redstone_output": false,
+    "special_dimension": "lucineer:neural_synapse"
+  }
+}

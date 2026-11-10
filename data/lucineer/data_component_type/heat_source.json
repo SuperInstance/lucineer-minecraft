@@ -1,0 +1,129 @@
+{
+  "comment": "Heat Source Data Component - Defines heat generation in thermal simulation",
+  "schema_version": "1.21.1",
+  "loader": "neoforge:data_component_type",
+  
+  "name": "lucineer:heat_source",
+  "persistent": true,
+  "network_synced": true,
+  
+  "schema": {
+    "type": "object",
+    "properties": {
+      "source_id": {
+        "type": "string",
+        "description": "Unique heat source identifier"
+      },
+      "source_type": {
+        "type": "string",
+        "enum": ["point", "gaussian", "uniform", "line", "rectangular", "cylindrical"],
+        "description": "Heat source geometry"
+      },
+      "power_w": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1000.0,
+        "description": "Total power in watts"
+      },
+      "power_density_w_m3": {
+        "type": "number",
+        "minimum": 0,
+        "description": "Volumetric power density for distributed sources"
+      },
+      "position": {
+        "type": "object",
+        "properties": {
+          "x": { "type": "integer" },
+          "y": { "type": "integer" },
+          "z": { "type": "integer" }
+        },
+        "description": "Grid position (block coordinates)"
+      },
+      "position_range": {
+        "type": "object",
+        "properties": {
+          "x_min": { "type": "integer" },
+          "x_max": { "type": "integer" },
+          "y_min": { "type": "integer" },
+          "y_max": { "type": "integer" },
+          "z_min": { "type": "integer" },
+          "z_max": { "type": "integer" }
+        },
+        "description": "For distributed sources, the bounding box"
+      },
+      "gaussian_params": {
+        "type": "object",
+        "properties": {
+          "sigma": {
+            "type": "number",
+            "minimum": 0.1,
+            "description": "Standard deviation of Gaussian distribution"
+          }
+        },
+        "description": "Parameters for Gaussian heat sources"
+      },
+      "time_profile": {
+        "type": "string",
+        "enum": ["constant", "pulse", "periodic", "ramp", "custom"],
+        "default": "constant",
+        "description": "Time-dependent behavior"
+      },
+      "time_params": {
+        "type": "object",
+        "properties": {
+          "pulse_duration_s": { "type": "number" },
+          "period_s": { "type": "number" },
+          "duty_cycle": { "type": "number", "minimum": 0, "maximum": 1 },
+          "ramp_rate_w_s": { "type": "number" }
+        },
+        "description": "Parameters for time-dependent profiles"
+      },
+      "active": {
+        "type": "boolean",
+        "default": true,
+        "description": "Whether the heat source is currently active"
+      }
+    },
+    "required": ["source_id", "source_type", "power_w"]
+  },
+  
+  "presets": {
+    "mac_array_point": {
+      "source_id": "mac_array_center",
+      "source_type": "point",
+      "power_w": 0.000001,
+      "position": { "x": 50, "y": 50, "z": 0 },
+      "time_profile": "constant"
+    },
+    "mac_array_gaussian": {
+      "source_id": "mac_array_gaussian",
+      "source_type": "gaussian",
+      "power_w": 0.000001,
+      "position": { "x": 50, "y": 50, "z": 0 },
+      "gaussian_params": { "sigma": 2.0 },
+      "time_profile": "constant"
+    },
+    "memory_controller": {
+      "source_id": "memory_controller",
+      "source_type": "rectangular",
+      "power_density_w_m3": 1.0e10,
+      "position_range": {
+        "x_min": 20, "x_max": 80,
+        "y_min": 20, "y_max": 80,
+        "z_min": 0, "z_max": 10
+      },
+      "time_profile": "constant"
+    },
+    "pulse_test": {
+      "source_id": "pulse_test",
+      "source_type": "point",
+      "power_w": 0.00001,
+      "position": { "x": 50, "y": 50, "z": 0 },
+      "time_profile": "pulse",
+      "time_params": {
+        "pulse_duration_s": 1.0e-9,
+        "period_s": 1.0e-6
+      }
+    }
+  }
+}

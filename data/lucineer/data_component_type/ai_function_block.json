@@ -1,0 +1,124 @@
+{
+  "comment": "Cell Builder AI Function Block - Spreadsheet neural operations",
+  "schema_version": "1.21.1",
+  "loader": "neoforge:data_component_type",
+  
+  "name": "lucineer:ai_function_block",
+  "persistent": true,
+  "network_synced": true,
+  
+  "schema": {
+    "type": "object",
+    "properties": {
+      "function_id": {"type": "string"},
+      "category": {
+        "type": "string",
+        "enum": ["Neural", "Activation", "Layers", "Loss", "Training", "Attention", "Data", "Quantize"]
+      },
+      "syntax": {"type": "string"},
+      "description": {"type": "string"},
+      "example": {"type": "string"},
+      "complexity": {
+        "type": "string",
+        "enum": ["basic", "intermediate", "advanced"]
+      },
+      "inputs": {
+        "type": "object",
+        "properties": {
+          "count": {"type": "integer"},
+          "types": {
+            "type": "array",
+            "items": {"type": "string"}
+          }
+        }
+      },
+      "output_type": {"type": "string"},
+      "tier_unlock": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 10,
+        "description": "Learning tier required to use this function"
+      },
+      "execution": {
+        "type": "object",
+        "properties": {
+          "computational_cost": {"type": "number"},
+          "memory_usage": {"type": "number"},
+          "visual_effect": {"type": "string"}
+        }
+      }
+    }
+  },
+  
+  "presets": {
+    "NEURON": {
+      "function_id": "neuron",
+      "category": "Neural",
+      "syntax": "=NEURON(inputs, weights, bias)",
+      "description": "Computes a single neuron output: σ(Σ(wi*xi) + b)",
+      "example": "=NEURON(A1:A4, B1:B4, C1)",
+      "complexity": "basic",
+      "inputs": {"count": 3, "types": ["range", "range", "cell"]},
+      "output_type": "number",
+      "tier_unlock": 1
+    },
+    "RELU": {
+      "function_id": "relu",
+      "category": "Activation",
+      "syntax": "=RELU(value)",
+      "description": "Rectified Linear Unit: max(0, x)",
+      "example": "=RELU(A1)",
+      "complexity": "basic",
+      "inputs": {"count": 1, "types": ["number"]},
+      "output_type": "number",
+      "tier_unlock": 1,
+      "execution": {"visual_effect": "green_glow_active"}
+    },
+    "SIGMOID": {
+      "function_id": "sigmoid",
+      "category": "Activation",
+      "syntax": "=SIGMOID(value)",
+      "description": "Sigmoid activation: 1 / (1 + e^(-x))",
+      "example": "=SIGMOID(A1)",
+      "complexity": "basic",
+      "tier_unlock": 1
+    },
+    "DENSE": {
+      "function_id": "dense",
+      "category": "Layers",
+      "syntax": "=DENSE(inputs, weights_matrix, bias_vector)",
+      "description": "Dense (fully connected) layer computation",
+      "example": "=DENSE(A1:A10, B1:K10, L1:L10)",
+      "complexity": "intermediate",
+      "tier_unlock": 3
+    },
+    "TERNARY": {
+      "function_id": "ternary",
+      "category": "Quantize",
+      "syntax": "=TERNARY(value)",
+      "description": "Convert to ternary {-1, 0, +1} (BitNet)",
+      "example": "=TERNARY(A1)",
+      "complexity": "intermediate",
+      "tier_unlock": 4,
+      "execution": {"visual_effect": "red_gray_green_coloring"}
+    },
+    "ATTENTION": {
+      "function_id": "attention",
+      "category": "Attention",
+      "syntax": "=ATTENTION(Q, K, V)",
+      "description": "Scaled dot-product attention mechanism",
+      "example": "=ATTENTION(A1:D4, E1:H4, I1:L4)",
+      "complexity": "advanced",
+      "tier_unlock": 6
+    },
+    "SELF_ATTENTION": {
+      "function_id": "self_attention",
+      "category": "Attention",
+      "syntax": "=SELF_ATTENTION(input_range, heads)",
+      "description": "Multi-head self-attention layer",
+      "example": "=SELF_ATTENTION(A1:D10, 4)",
+      "complexity": "advanced",
+      "tier_unlock": 7
+    }
+  }
+}

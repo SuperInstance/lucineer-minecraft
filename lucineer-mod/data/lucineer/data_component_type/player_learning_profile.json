@@ -1,0 +1,160 @@
+{
+  "comment": "Player Learning Profile - Tracks all learning progress",
+  "schema_version": "1.21.1",
+  "loader": "neoforge:data_component_type",
+  
+  "name": "lucineer:player_learning_profile",
+  "persistent": true,
+  "network_synced": true,
+  
+  "schema": {
+    "type": "object",
+    "properties": {
+      "player_id": { "type": "string" },
+      "player_name": { "type": "string" },
+      
+      "age_tier": {
+        "type": "string",
+        "enum": ["ELEMENTARY", "MIDDLE", "HIGH", "PROFESSIONAL"],
+        "description": "Auto-detected or manually set"
+      },
+      
+      "skill_levels": {
+        "type": "object",
+        "properties": {
+          "electronics_basics": { "type": "integer", "minimum": 1, "maximum": 100 },
+          "logic_design": { "type": "integer", "minimum": 1, "maximum": 100 },
+          "digital_circuits": { "type": "integer", "minimum": 1, "maximum": 100 },
+          "transistor_physics": { "type": "integer", "minimum": 1, "maximum": 100 },
+          "cpu_architecture": { "type": "integer", "minimum": 1, "maximum": 100 },
+          "memory_systems": { "type": "integer", "minimum": 1, "maximum": 100 },
+          "thermal_engineering": { "type": "integer", "minimum": 1, "maximum": 100 },
+          "chip_design": { "type": "integer", "minimum": 1, "maximum": 100 },
+          "neural_networks": { "type": "integer", "minimum": 1, "maximum": 100 },
+          "ai_accelerators": { "type": "integer", "minimum": 1, "maximum": 100 }
+        }
+      },
+      
+      "interests": {
+        "type": "array",
+        "items": { "type": "string" },
+        "description": "Topics player showed interest in"
+      },
+      
+      "learning_style": {
+        "type": "string",
+        "enum": ["VISUAL", "AUDITORY", "KINESTHETIC", "READING"],
+        "description": "Auto-detected from behavior"
+      },
+      
+      "completed_lessons": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "lesson_id": { "type": "string" },
+            "topic": { "type": "string" },
+            "completed_at": { "type": "string", "format": "date-time" },
+            "score": { "type": "number" },
+            "time_spent_seconds": { "type": "integer" }
+          }
+        }
+      },
+      
+      "completed_projects": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "project_id": { "type": "string" },
+            "project_type": { "type": "string" },
+            "difficulty": { "type": "integer" },
+            "completed_at": { "type": "string", "format": "date-time" }
+          }
+        }
+      },
+      
+      "xp": {
+        "type": "object",
+        "properties": {
+          "total": { "type": "integer" },
+          "electronics": { "type": "integer" },
+          "design": { "type": "integer" },
+          "thermal": { "type": "integer" },
+          "neural": { "type": "integer" }
+        }
+      },
+      
+      "achievements": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "achievement_id": { "type": "string" },
+            "unlocked_at": { "type": "string", "format": "date-time" }
+          }
+        }
+      },
+      
+      "current_learning_path": {
+        "type": "object",
+        "properties": {
+          "path_name": { "type": "string" },
+          "current_topic": { "type": "string" },
+          "next_lesson_id": { "type": "string" },
+          "path_progress_percent": { "type": "number" }
+        }
+      },
+      
+      "preferred_npc_guides": {
+        "type": "array",
+        "items": { "type": "string" },
+        "description": "NPCs player interacts with most"
+      },
+      
+      "session_stats": {
+        "type": "object",
+        "properties": {
+          "total_play_time_hours": { "type": "number" },
+          "lessons_this_session": { "type": "integer" },
+          "projects_this_session": { "type": "integer" },
+          "xp_this_session": { "type": "integer" }
+        }
+      }
+    },
+    "required": ["player_id"]
+  },
+  
+  "learning_paths": {
+    "electronics_fundamentals": {
+      "topics": ["electricity_basics", "circuits", "components", "multimeter"],
+      "unlocks_at": "default",
+      "tier": 1
+    },
+    "digital_logic": {
+      "topics": ["logic_gates", "boolean_algebra", "combinational", "sequential"],
+      "unlocks_at": "electronics_basics >= 10",
+      "tier": 2
+    },
+    "transistor_engineering": {
+      "topics": ["semiconductors", "mosfet_basics", "amplifiers", "switching"],
+      "unlocks_at": "digital_circuits >= 20",
+      "tier": 3
+    },
+    "chip_design_flow": {
+      "topics": ["rtl_design", "synthesis", "floorplanning", "routing", "verification"],
+      "unlocks_at": "transistor_physics >= 30",
+      "tier": 4
+    },
+    "thermal_engineering": {
+      "topics": ["heat_transfer", "cooling_solutions", "thermal_simulation", "optimization"],
+      "unlocks_at": "chip_design >= 20",
+      "tier": 4
+    },
+    "ai_accelerator_design": {
+      "topics": ["neural_basics", "hardware_nn", "quantization", "optimization"],
+      "unlocks_at": "chip_design >= 50 AND neural_networks >= 30",
+      "tier": 5
+    }
+  }
+}

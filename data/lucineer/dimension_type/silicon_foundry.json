@@ -1,0 +1,53 @@
+{
+  "comment": "Lucineer Silicon Foundry Dimension Type - Based on thermal simulation parameters",
+  "schema_version": "1.21.1",
+  "loader": "neoforge:dimension_type",
+  
+  "name": "Silicon Foundry",
+  "description": "A dimension representing the thermal dynamics of AI chip manufacturing",
+  
+  "ambient_light": 0.1,
+  "bed_works": false,
+  "coordinate_scale": 1.0,
+  "effects": "minecraft:the_end",
+  "fixed_time": 18000,
+  "has_ceiling": true,
+  "has_raids": false,
+  "has_skylight": false,
+  "height": 384,
+  "infiniburn": "#minecraft:infiniburn_overworld",
+  "logical_height": 384,
+  "min_y": -64,
+  "monster_spawn_block_light_limit": 0,
+  "monster_spawn_light_level": {
+    "type": "minecraft:uniform",
+    "value": {
+      "min_inclusive": 0,
+      "max_inclusive": 7
+    }
+  },
+  "natural": false,
+  "piglin_safe": false,
+  "respawn_anchor_works": false,
+  "ultrawarm": true,
+  
+  "lucineer:thermal_properties": {
+    "ambient_temperature": 300.0,
+    "thermal_conductivity_base": 148.0,
+    "convergence_tolerance": 1.0e-6,
+    "max_iterations": 10000,
+    "grid_scale": "10nm_per_block",
+    "boundary_conditions": {
+      "top": "convection",
+      "bottom": "dirichlet",
+      "sides": "neumann"
+    }
+  },
+  
+  "lucineer:simulation_config": {
+    "time_step_ns": 1.0,
+    "total_time_us": 1.0,
+    "relaxation_factor": 1.0,
+    "solver_type": "finite_difference"
+  }
+}

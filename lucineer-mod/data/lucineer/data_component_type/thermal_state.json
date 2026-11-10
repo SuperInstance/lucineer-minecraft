@@ -1,0 +1,116 @@
+{
+  "comment": "Thermal Simulation State - Real-time heat transfer simulation",
+  "schema_version": "1.21.1",
+  "loader": "neoforge:data_component_type",
+  
+  "name": "lucineer:thermal_state",
+  "persistent": true,
+  "network_synced": true,
+  
+  "schema": {
+    "type": "object",
+    "properties": {
+      "simulation_id": { "type": "string" },
+      "grid_config": {
+        "type": "object",
+        "properties": {
+          "nx": { "type": "integer", "minimum": 10, "maximum": 256 },
+          "ny": { "type": "integer", "minimum": 10, "maximum": 256 },
+          "nz": { "type": "integer", "minimum": 1, "maximum": 64 },
+          "cell_size_nm": { "type": "number" }
+        }
+      },
+      "boundary_conditions": {
+        "type": "object",
+        "properties": {
+          "left": { "type": "string", "enum": ["DIRICHLET", "NEUMANN", "CONVECTIVE", "PERIODIC"] },
+          "right": { "type": "string", "enum": ["DIRICHLET", "NEUMANN", "CONVECTIVE", "PERIODIC"] },
+          "top": { "type": "string", "enum": ["DIRICHLET", "NEUMANN", "CONVECTIVE", "PERIODIC"] },
+          "bottom": { "type": "string", "enum": ["DIRICHLET", "NEUMANN", "CONVECTIVE", "PERIODIC"] },
+          "convection_coefficient_w_m2k": { "type": "number" },
+          "ambient_temperature_k": { "type": "number" }
+        }
+      },
+      "heat_sources": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "source_id": { "type": "string" },
+            "type": { "type": "string", "enum": ["POINT", "GAUSSIAN", "UNIFORM", "RECTANGULAR"] },
+            "position": { "type": "object" },
+            "power_w": { "type": "number" },
+            "power_density_w_m3": { "type": "number" },
+            "active": { "type": "boolean" }
+          }
+        }
+      },
+      "material_map": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object",
+          "properties": {
+            "material_id": { "type": "string" },
+            "thermal_conductivity_w_mk": { "type": "number" },
+            "specific_heat_j_kgk": { "type": "number" },
+            "density_kg_m3": { "type": "number" }
+          }
+        }
+      },
+      "temperature_field": {
+        "type": "object",
+        "properties": {
+          "data": { "type": "array", "items": { "type": "number" } },
+          "min_k": { "type": "number" },
+          "max_k": { "type": "number" },
+          "avg_k": { "type": "number" }
+        }
+      },
+      "simulation_config": {
+        "type": "object",
+        "properties": {
+          "time_step_ns": { "type": "number" },
+          "total_time_us": { "type": "number" },
+          "max_iterations": { "type": "integer" },
+          "convergence_tolerance": { "type": "number" },
+          "solver_type": { "type": "string", "enum": ["JACOBI", "GAUSS_SEIDEL", "SOR", "MATRIX"] }
+        }
+      },
+      "results": {
+        "type": "object",
+        "properties": {
+          "peak_temperature_k": { "type": "number" },
+          "temperature_rise_k": { "type": "number" },
+          "thermal_resistance_kw": { "type": "number" },
+          "converged": { "type": "boolean" },
+          "iterations": { "type": "integer" },
+          "hot_spots": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "x": { "type": "integer" },
+                "y": { "type": "integer" },
+                "z": { "type": "integer" },
+                "temperature_k": { "type": "number" }
+              }
+            }
+          }
+        }
+      },
+      "status": {
+        "type": "string",
+        "enum": ["IDLE", "RUNNING", "CONVERGED", "FAILED", "OVERHEAT"],
+        "default": "IDLE"
+      }
+    },
+    "required": ["simulation_id"]
+  },
+  
+  "gameplay_integration": {
+    "visual_feedback": "Block colors change with temperature",
+    "warning_system": "Particles emit at > 85°C",
+    "failure_mode": "Chip breaks at > 150°C",
+    "cooling_items": ["ice", "water_bucket", "fan_item", "heatsink_item"]
+  }
+}
